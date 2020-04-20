@@ -396,6 +396,7 @@ static inline unsigned llvm_combineHashValue(unsigned a, unsigned b) {
 }
 
 namespace llvm {
+#if 0
 template <typename... Ts> struct DenseMapInfo<std::tuple<Ts...>> {
   using Tuple = std::tuple<Ts...>;
 
@@ -444,7 +445,7 @@ template <typename... Ts> struct DenseMapInfo<std::tuple<Ts...>> {
     return isEqualImpl<0>(lhs, rhs, atEnd);
   }
 };
-
+#endif
 } // end namespace llvm
 
 #endif // MLIR_SUPPORT_STLEXTRAS_H
