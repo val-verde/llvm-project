@@ -120,6 +120,8 @@ add_lldb_library(liblldb SHARED ${option_framework}
 ## BEGIN SWIFT
     ${SWIFT_ALL_LIBS}
 ## END SWIFT
+    LLVM
+    clang-cpp
   LINK_COMPONENTS
     Support
 

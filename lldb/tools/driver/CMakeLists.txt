@@ -17,6 +17,8 @@ add_lldb_tool(lldb
 
   LINK_LIBS
     liblldb
+    LLVM
+    clang-cpp
 
   LINK_COMPONENTS
     Option
