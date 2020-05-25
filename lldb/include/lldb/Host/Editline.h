@@ -40,7 +40,7 @@
 
 #include "lldb/lldb-private.h"
 
-#if !defined(_WIN32) && !defined(__ANDROID__)
+#if !defined(_WIN32)
 #include <histedit.h>
 #endif
 
