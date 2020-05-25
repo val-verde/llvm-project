@@ -117,9 +117,9 @@ add_lldb_library(liblldb SHARED ${option_framework}
     lldbTarget
     lldbUtility
     ${LLDB_ALL_PLUGINS}
-## BEGIN SWIFT
+    ## BEGIN SWIFT
     ${SWIFT_ALL_LIBS}
-## END SWIFT
+    ## END SWIFT
   LINK_COMPONENTS
     Support
 
