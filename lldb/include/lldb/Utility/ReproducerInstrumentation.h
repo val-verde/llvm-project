@@ -20,6 +20,10 @@
 #include <thread>
 #include <type_traits>
 
+#ifdef __ANDROID__
+#include <bits/struct_file.h>
+#endif
+
 template <typename T,
           typename std::enable_if<std::is_fundamental<T>::value, int>::type = 0>
 inline void stringify_append(llvm::raw_string_ostream &ss, const T &t) {
