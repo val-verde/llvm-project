@@ -35,6 +35,8 @@ add_lldb_tool(lldb-vscode
     liblldb
     ${host_lib}
     ${extra_libs}
+    LLVM
+    clang-cpp
 
   LINK_COMPONENTS
     Support
