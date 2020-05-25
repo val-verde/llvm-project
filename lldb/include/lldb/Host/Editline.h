@@ -43,7 +43,7 @@
 
 #if defined(_WIN32)
 #include "lldb/Host/windows/editlinewin.h"
-#elif !defined(__ANDROID__)
+#else
 #include <histedit.h>
 #endif
 
