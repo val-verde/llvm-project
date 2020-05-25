@@ -55,10 +55,15 @@ add_lldb_library(lldbSymbol
   ${SWIFT_SOURCES}
   ${PLATFORM_SOURCES}
 
-  LINK_LIBS
+  DEPENDS
+    intrinsics_gen
+
+  CLANG_LIBS
     clangAST
     clangBasic
     clangFrontend
+
+  LINK_LIBS
     lldbCore
     lldbExpression
     lldbHost
