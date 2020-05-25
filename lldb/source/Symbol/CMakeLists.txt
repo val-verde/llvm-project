@@ -58,10 +58,11 @@ add_lldb_library(lldbSymbol
   DEPENDS
     intrinsics_gen
 
-  LINK_LIBS
+  CLANG_LIBS
     clangAST
     clangBasic
     clangFrontend
+  LINK_LIBS
     lldbCore
     lldbExpression
     lldbHost
