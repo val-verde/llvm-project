@@ -36,6 +36,8 @@ add_lldb_library(lldbPluginExpressionParserSwift PLUGIN
     swiftSIL
     swiftSILOptimizer
     swiftSerialization
+
+  CLANG_LIBS
     clangAST
     clangBasic
     clangRewrite
