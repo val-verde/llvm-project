@@ -1,4 +1,5 @@
 # MLIR project.
+set(BUILD_SHARED_LIBS FALSE)
 set(MLIR_MAIN_SRC_DIR ${CMAKE_CURRENT_SOURCE_DIR}/include ) # --src-root
 set(MLIR_INCLUDE_DIR ${CMAKE_CURRENT_BINARY_DIR}/include ) # --includedir
 set(MLIR_TABLEGEN_EXE mlir-tblgen)

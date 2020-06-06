@@ -18,6 +18,14 @@ target_link_libraries(mlir-cpu-runner PRIVATE
   MLIRParser
   MLIRTargetLLVMIR
   MLIRSupport
+  LLVMAggressiveInstCombine
+  LLVMAnalysis
   LLVMCore
+  LLVMInstCombine
+  LLVMJITLink
+  LLVMMC
+  LLVMScalarOpts
   LLVMSupport
+  LLVMTarget
+  LLVMVectorize
 )
