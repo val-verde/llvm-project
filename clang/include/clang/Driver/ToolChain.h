@@ -394,7 +394,7 @@ public:
   }
 
   /// GetDefaultLinker - Get the default linker to use.
-  virtual const char *getDefaultLinker() const { return "ld"; }
+  virtual const char *getDefaultLinker() const { return "ld.lld"; }
 
   /// GetDefaultRuntimeLibType - Get the default runtime library variant to use.
   virtual RuntimeLibType GetDefaultRuntimeLibType() const {
