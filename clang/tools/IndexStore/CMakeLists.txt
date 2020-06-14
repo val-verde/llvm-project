@@ -69,7 +69,7 @@ if (LLVM_INSTALL_TOOLCHAIN_ONLY)
   endif()
 endif()
 
-set(INDEXSTORE_HEADERS_INSTALL_DESTINATION "local/include")
+set(INDEXSTORE_HEADERS_INSTALL_DESTINATION "include")
 
 install(DIRECTORY ../../include/indexstore
   COMPONENT IndexStore
