@@ -1252,6 +1252,10 @@ static const char *getDefaultTempDir(bool ErasedOnReboot) {
     return P_tmpdir;
 #endif
 
+#ifdef __ANDROID__
+    return "/data/local/tmp";
+#endif
+
   if (ErasedOnReboot)
     return "/tmp";
   return "/var/tmp";
