@@ -3078,7 +3078,15 @@ static void RenderBuiltinOptions(const ToolChain &TC, const llvm::Triple &T,
 }
 
 void Driver::getDefaultModuleCachePath(SmallVectorImpl<char> &Result) {
+#ifdef __ANDROID__
+  Result.clear();
+
+  const char *RequestedDir = "/data/local/tmp";
+  Result.append(RequestedDir, RequestedDir + strlen(RequestedDir));
+#else
   llvm::sys::path::system_temp_directory(/*erasedOnReboot=*/false, Result);
+#endif
+
   llvm::sys::path::append(Result, "org.llvm.clang.");
   appendUserToPath(Result);
   llvm::sys::path::append(Result, "ModuleCache");
