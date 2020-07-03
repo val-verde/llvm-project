@@ -11,6 +11,8 @@
 include_directories(${LIBOMP_INCLUDE_DIR})
 
 add_library(archer SHARED ompt-tsan.cpp)
+target_link_libraries(archer
+                      ${LIBOMPTARGET_DEP_LIBUNWIND_LIBRARIES})
 add_library(archer_static STATIC ompt-tsan.cpp)
 
 install(TARGETS archer archer_static

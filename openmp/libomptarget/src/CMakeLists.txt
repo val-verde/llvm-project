@@ -24,6 +24,7 @@ set(src_files
 add_library(omptarget SHARED ${src_files})
 target_link_libraries(omptarget
   ${CMAKE_DL_LIBS}
+  ${LIBOMPTARGET_DEP_LIBUNWIND_LIBRARIES}
   "-Wl,--version-script=${CMAKE_CURRENT_SOURCE_DIR}/exports")
 
 # Install libomptarget under the lib destination folder.

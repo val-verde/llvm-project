@@ -47,6 +47,18 @@ find_library (
     ENV LIBRARY_PATH
     ENV LD_LIBRARY_PATH)
     
+find_library (
+  LIBOMPTARGET_DEP_LIBUNWIND_LIBRARIES
+  NAMES
+    unwind
+  PATHS
+    /usr/lib
+    /usr/local/lib
+    /opt/local/lib
+    /sw/lib
+    ENV LIBRARY_PATH
+    ENV LD_LIBRARY_PATH)
+
 set(LIBOMPTARGET_DEP_LIBELF_INCLUDE_DIRS ${LIBOMPTARGET_DEP_LIBELF_INCLUDE_DIR})
 find_package_handle_standard_args(
   LIBOMPTARGET_DEP_LIBELF 

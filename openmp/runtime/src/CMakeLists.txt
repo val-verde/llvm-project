@@ -168,7 +168,7 @@ endif()
 
 # Linking command will include libraries in LIBOMP_CONFIGURED_LIBFLAGS
 libomp_get_libflags(LIBOMP_CONFIGURED_LIBFLAGS)
-target_link_libraries(omp ${LIBOMP_CONFIGURED_LIBFLAGS} ${CMAKE_DL_LIBS})
+target_link_libraries(omp ${LIBOMP_CONFIGURED_LIBFLAGS} ${CMAKE_DL_LIBS} ${LIBOMPTARGET_DEP_LIBUNWIND_LIBRARIES})
 
 # Create *.inc before compiling any sources
 # objects depend on : .inc files
