@@ -633,7 +633,7 @@ Expected<Symbol &> EHFrameEdgeFixer::getOrCreateSymbol(ParseContext &PC,
 #if (defined(__GNUC__) && !defined(__ARM_EABI__) && !defined(__ia64__) &&      \
      !(defined(_AIX) && defined(__ibmxl__)) && !defined(__MVS__) &&            \
      !defined(__SEH__) && !defined(__USING_SJLJ_EXCEPTIONS__))
-#define HAVE_EHTABLE_SUPPORT 1
+#define HAVE_EHTABLE_SUPPORT 0 
 #else
 #define HAVE_EHTABLE_SUPPORT 0
 #endif
