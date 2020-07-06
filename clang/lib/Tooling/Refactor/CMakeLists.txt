@@ -44,6 +44,6 @@ add_clang_library(clangToolingRefactor
   clangRewrite
   )
 
-if(CMAKE_SYSTEM_NAME STREQUAL Windows)
+if(MSVC)
   set_source_files_properties(Extract.cpp PROPERTIES COMPILE_FLAGS /bigobj)
 endif()
