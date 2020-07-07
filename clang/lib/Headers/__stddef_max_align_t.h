@@ -10,7 +10,7 @@
 #ifndef __CLANG_MAX_ALIGN_T_DEFINED
 #define __CLANG_MAX_ALIGN_T_DEFINED
 
-#if defined(_MSC_VER)
+#if defined(_WIN32)
 typedef double max_align_t;
 #elif defined(__APPLE__)
 typedef long double max_align_t;
