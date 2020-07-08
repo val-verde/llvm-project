@@ -39,6 +39,8 @@
 #endif
 #endif
 
+#undef KMP_OS_WINDOWS
+
 /* Implement spin locks for internal library use.             */
 /* The algorithm implemented is Lamport's bakery lock [1974]. */
 
@@ -1730,6 +1732,7 @@ static void __kmp_set_queuing_lock_flags(kmp_queuing_lock_t *lck,
 #define STRINGIZE_INTERNAL(arg) #arg
 #define STRINGIZE(arg) STRINGIZE_INTERNAL(arg)
 
+#if !defined(_WIN32)
 // Access to RTM instructions
 /*A version of XBegin which returns -1 on speculation, and the value of EAX on
   an abort. This is the same definition as the compiler intrinsic that will be
@@ -1793,6 +1796,7 @@ static __inline void _xend() {
   __asm__ volatile(".byte 0x0f; .byte 0x01; .byte 0xd5" ::: "memory");
 #endif
 }
+#endif
 
 /* This is a macro, the argument must be a single byte constant which can be
    evaluated by the inline assembler, since it is emitted as a byte into the
