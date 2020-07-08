@@ -155,7 +155,7 @@ else ()
   # hosts. This is not the case for bugpoint. Use LLVM_POLLY_LINK_INTO_TOOLS=ON
   # instead which will automatically resolve the additional dependencies by
   # Polly.
-  target_link_libraries(LLVMPolly PUBLIC ${ISL_TARGET})
+  target_link_libraries(LLVMPolly PUBLIC ${ISL_TARGET} LLVMipo LLVMAnalysis LLVMCore LLVMInstCombine LLVMPasses LLVMScalarOpts LLVMSupport LLVMTransformUtils)
   if (GPU_CODEGEN)
     target_link_libraries(LLVMPolly PUBLIC PollyPPCG)
   endif ()
