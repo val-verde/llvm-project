@@ -75,7 +75,7 @@ static void __deregister_frame(void *p) {
 }
 #endif
 
-#ifdef __APPLE__
+#if defined(__APPLE__) || defined(__linux__)
 
 static const char *processFDE(const char *Entry, bool isDeregister) {
   const char *P = Entry;
