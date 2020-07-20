@@ -44,6 +44,7 @@ macro(add_polly_library name)
   if (NOT LLVM_INSTALL_TOOLCHAIN_ONLY OR ${name} STREQUAL "LLVMPolly")
     install(TARGETS ${name}
       EXPORT LLVMExports
+      RUNTIME DESTINATION bin
       LIBRARY DESTINATION lib${LLVM_LIBDIR_SUFFIX}
       ARCHIVE DESTINATION lib${LLVM_LIBDIR_SUFFIX})
   endif()
