@@ -211,7 +211,7 @@ void addWindowsDefines(const llvm::Triple &Triple, const LangOptions &Opts,
     Builder.defineMacro("_WIN64");
   if (Triple.isWindowsGNUEnvironment())
     addMinGWDefines(Triple, Opts, Builder);
-  else if (Triple.isKnownWindowsMSVCEnvironment() ||
+  else if (Triple.isWindowsMSVCEnvironment() ||
            (Triple.isWindowsItaniumEnvironment() && Opts.MSVCCompat))
     addVisualCDefines(Opts, Builder);
 }
