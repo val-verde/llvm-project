@@ -179,7 +179,7 @@ static void initialize(TargetLibraryInfoImpl &TLI, const Triple &T,
     // the specific library version must be explicit in the target triple,
     // e.g., x86_64-pc-windows-msvc18.
     bool hasPartialC99 = true;
-    if (T.isKnownWindowsMSVCEnvironment()) {
+    if (T.isWindowsMSVCEnvironment()) {
       unsigned Major, Minor, Micro;
       T.getEnvironmentVersion(Major, Minor, Micro);
       hasPartialC99 = (Major == 0 || Major >= 19);
