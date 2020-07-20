@@ -138,7 +138,7 @@ TargetInfo::TargetInfo(const llvm::Triple &T) : Triple(T) {
   ComplexLongDoubleUsesFP2Ret = false;
 
   // Set the C++ ABI based on the triple.
-  TheCXXABI.set(Triple.isKnownWindowsMSVCEnvironment()
+  TheCXXABI.set(Triple.isWindowsMSVCEnvironment()
                     ? TargetCXXABI::Microsoft
                     : TargetCXXABI::GenericItanium);
 
