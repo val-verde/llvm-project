@@ -941,6 +941,7 @@ void ToolChain::AddCXXStdlibLibArgs(const ArgList &Args,
   switch (Type) {
   case ToolChain::CST_Libcxx:
     CmdArgs.push_back("-lc++");
+    CmdArgs.push_back("-lunwind");
     break;
 
   case ToolChain::CST_Libstdcxx:
