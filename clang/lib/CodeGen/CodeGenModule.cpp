@@ -4278,7 +4278,7 @@ static bool isVarDeclStrongDefinition(const ASTContext &Context,
   // Other COFF linkers (ld.bfd and LLD) support arbitrary power-of-two
   // alignments for common symbols via the aligncomm directive, so this
   // restriction only applies to MSVC environments.
-  if (Context.getTargetInfo().getTriple().isKnownWindowsMSVCEnvironment() &&
+  if (Context.getTargetInfo().getTriple().isWindowsMSVCEnvironment() &&
       Context.getTypeAlignIfKnown(D->getType()) >
           Context.toBits(CharUnits::fromQuantity(32)))
     return true;

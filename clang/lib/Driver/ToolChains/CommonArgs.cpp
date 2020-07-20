@@ -1319,7 +1319,7 @@ void tools::AddRunTimeLibs(const ToolChain &TC, const Driver &D,
     break;
   case ToolChain::RLT_Libgcc:
     // Make sure libgcc is not used under MSVC environment by default
-    if (TC.getTriple().isKnownWindowsMSVCEnvironment()) {
+    if (TC.getTriple().isWindowsMSVCEnvironment()) {
       // Issue error diagnostic if libgcc is explicitly specified
       // through command line as --rtlib option argument.
       if (Args.hasArg(options::OPT_rtlib_EQ)) {

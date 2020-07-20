@@ -4101,7 +4101,7 @@ llvm::Value *CGObjCGNU::EmitIvarOffset(CodeGenFunction &CGF,
     // and ExternalLinkage, so create a reference to the ivar global and rely on
     // the definition being created as part of GenerateClass.
     if (RuntimeVersion < 10 ||
-        CGF.CGM.getTarget().getTriple().isKnownWindowsMSVCEnvironment())
+        CGF.CGM.getTarget().getTriple().isWindowsMSVCEnvironment())
       return CGF.Builder.CreateZExtOrBitCast(
           CGF.Builder.CreateAlignedLoad(
               Int32Ty, CGF.Builder.CreateAlignedLoad(

@@ -536,14 +536,8 @@ public:
   }
 
   /// Checks if the environment is MSVC.
-  bool isKnownWindowsMSVCEnvironment() const {
-    return isOSWindows() && getEnvironment() == Triple::MSVC;
-  }
-
-  /// Checks if the environment could be MSVC.
   bool isWindowsMSVCEnvironment() const {
-    return isKnownWindowsMSVCEnvironment() ||
-           (isOSWindows() && getEnvironment() == Triple::UnknownEnvironment);
+    return isOSWindows() && getEnvironment() == Triple::MSVC;
   }
 
   bool isWindowsCoreCLREnvironment() const {
@@ -559,7 +553,8 @@ public:
   }
 
   bool isWindowsGNUEnvironment() const {
-    return isOSWindows() && getEnvironment() == Triple::GNU;
+    return isOSWindows() && (getEnvironment() == Triple::GNU ||
+		             getEnvironment() == Triple::UnknownEnvironment);
   }
 
   /// Tests for either Cygwin or MinGW OS
