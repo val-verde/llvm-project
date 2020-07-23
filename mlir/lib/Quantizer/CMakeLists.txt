@@ -38,7 +38,11 @@ add_dependencies(MLIRQuantizerTransforms
   MLIRQuantizerFxpMathConfig
   MLIRQuantizerSupport
   MLIRPass)
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(MLIRQuantizerTransforms PUBLIC LLVM)
+else ()
 target_link_libraries(MLIRQuantizerTransforms
   MLIRQuantizerFxpMathConfig
   MLIRQuantizerSupport
   MLIRPass)
+endif ()

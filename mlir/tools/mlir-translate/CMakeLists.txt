@@ -13,5 +13,10 @@ add_llvm_executable(mlir-translate
   mlir-translate.cpp
 )
 llvm_update_compile_flags(mlir-translate)
+
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(mlir-translate PUBLIC MLIRAnalysis MLIRIR MLIRTranslateClParser ${LIBS} LLVM)
+else ()
 whole_archive_link(mlir-translate ${LIBS})
 target_link_libraries(mlir-translate PRIVATE MLIRIR MLIRTranslateClParser ${LIBS} LLVMSupport)
+endif ()

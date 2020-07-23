@@ -24,11 +24,15 @@ add_dependencies(MLIRSPIRV
   MLIRSPIRVOpUtilsGen
   MLIRSPIRVTargetAndABIIncGen)
 
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(MLIRSPIRV PUBLIC LLVM)
+else ()
 target_link_libraries(MLIRSPIRV
   MLIRIR
   MLIRParser
   MLIRSupport
   MLIRTransforms)
+endif ()
 
 add_subdirectory(Serialization)
 add_subdirectory(Transforms)

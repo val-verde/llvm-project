@@ -13,6 +13,9 @@ add_dependencies(
   LLVMCore
   LLVMSupport
 )
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(MLIRAffineToStandard PUBLIC LLVM)
+else ()
 target_link_libraries(
   MLIRAffineToStandard
 
@@ -22,3 +25,4 @@ target_link_libraries(
   LLVMCore
   LLVMSupport
 )
+endif ()

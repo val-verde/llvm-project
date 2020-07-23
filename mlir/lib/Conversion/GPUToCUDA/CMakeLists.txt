@@ -5,6 +5,17 @@ if(MLIR_CUDA_CONVERSIONS_ENABLED)
     ConvertKernelFuncToCubin.cpp
     ConvertLaunchFuncToCudaCalls.cpp
   )
+
+  if (LLVM_LINK_LLVM_DYLIB)
+  target_link_libraries(MLIRGPUtoCUDATransforms
+    PRIVATE
+    MLIRGPU
+    MLIRLLVMIR
+    MLIRNVVMIR
+    MLIRPass
+    MLIRTargetNVVMIR
+  )
+  else ()
   target_link_libraries(MLIRGPUtoCUDATransforms
     MLIRGPU
     MLIRLLVMIR
@@ -13,4 +24,5 @@ if(MLIR_CUDA_CONVERSIONS_ENABLED)
     MLIRTargetNVVMIR
     ${nvptx}
   )
+  endif ()
 endif()

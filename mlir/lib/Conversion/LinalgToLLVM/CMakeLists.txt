@@ -12,4 +12,8 @@ set(LIBS
   )
 
 add_dependencies(MLIRLinalgToLLVM ${LIBS})
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(MLIRLinalgToLLVM PUBLIC LLVM)
+else ()
 target_link_libraries(MLIRLinalgToLLVM ${LIBS})
+endif ()

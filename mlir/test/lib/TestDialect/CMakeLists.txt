@@ -21,8 +21,12 @@ add_dependencies(MLIRTestDialect
   LLVMSupport
   MLIRTypeInferOpInterfaceIncGen
 )
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(MLIRTestDialect PUBLIC LLVM)
+else ()
 target_link_libraries(MLIRTestDialect
   MLIRDialect
   MLIRIR
   LLVMSupport
 )
+endif ()

@@ -15,6 +15,9 @@ add_llvm_library(MLIRStandardToSPIRVTransforms
 add_dependencies(MLIRStandardToSPIRVTransforms
   MLIRStandardToSPIRVIncGen)
 
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(MLIRStandardToSPIRVTransforms PUBLIC LLVM)
+else ()
 target_link_libraries(MLIRStandardToSPIRVTransforms
   MLIRIR
   MLIRPass
@@ -24,3 +27,4 @@ target_link_libraries(MLIRStandardToSPIRVTransforms
   MLIRSPIRV
   MLIRStandardOps
   )
+endif ()

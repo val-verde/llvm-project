@@ -12,6 +12,9 @@ add_llvm_library(MLIRTransformUtils
   )
 
 add_dependencies(MLIRTransformUtils MLIRStandardOpsIncGen)
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(MLIRTransformUtils PUBLIC LLVM)
+else ()
 target_link_libraries(MLIRTransformUtils
   MLIRAffineOps
   MLIRAnalysis
@@ -19,3 +22,4 @@ target_link_libraries(MLIRTransformUtils
   MLIRPass
   MLIRStandardOps
   )
+endif ()

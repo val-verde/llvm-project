@@ -8,6 +8,21 @@ whole_archive_link(mlir-cpu-runner
   MLIRTargetLLVMIR
   MLIRTranslation
 )
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(mlir-cpu-runner PRIVATE
+  MLIRAnalysis
+  MLIREDSC
+  MLIRExecutionEngine
+  MLIRIR
+  MLIRJitRunner
+  MLIRLLVMIR
+  MLIRParser
+  MLIRTargetLLVMIR
+  MLIRSupport
+  MLIRTargetLLVMIRModuleTranslation
+  LLVM
+)
+else ()
 target_link_libraries(mlir-cpu-runner PRIVATE
   MLIRAnalysis
   MLIREDSC
@@ -29,3 +44,4 @@ target_link_libraries(mlir-cpu-runner PRIVATE
   LLVMTarget
   LLVMVectorize
 )
+endif ()

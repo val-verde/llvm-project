@@ -25,15 +25,20 @@ if(MLIR_CUDA_RUNNER_ENABLED)
 
   add_llvm_library(cuda-runtime-wrappers SHARED
     cuda-runtime-wrappers.cpp
+    LINK_LIBS
+    ${CUDA_RUNTIME_LIBRARY}
   )
   target_include_directories(cuda-runtime-wrappers
     PRIVATE ${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES}
     LLVMSupport
   )
+  if (NOT LLVM_LINK_LLVM_DYLIB)
   target_link_libraries(cuda-runtime-wrappers
+    LLVMCore
     LLVMSupport
     ${CUDA_RUNTIME_LIBRARY}
   )
+  endif ()
 
   set(FULL_LINK_LIBS
     MLIRAffineOps
@@ -45,6 +50,7 @@ if(MLIR_CUDA_RUNNER_ENABLED)
     MLIRStandardOps
     MLIRStandardToLLVM
     MLIRTargetLLVMIR
+    MLIRTargetLLVMIRModuleTranslation
     MLIRTransforms
     MLIRTranslation
   )
@@ -56,8 +62,6 @@ if(MLIR_CUDA_RUNNER_ENABLED)
     MLIRExecutionEngine
     MLIRJitRunner
     MLIRSupport
-    LLVMCore
-    LLVMSupport
     ${CUDA_RUNTIME_LIBRARY}
   )
   add_llvm_executable(mlir-cuda-runner
@@ -69,6 +73,10 @@ if(MLIR_CUDA_RUNNER_ENABLED)
   )
   llvm_update_compile_flags(mlir-cuda-runner)
   whole_archive_link(mlir-cuda-runner ${FULL_LINK_LIBS})
-  target_link_libraries(mlir-cuda-runner PRIVATE ${FULL_LINK_LIBS} ${LIBS})
+  if (LLVM_LINK_LLVM_DYLIB)
+  target_link_libraries(mlir-cuda-runner PRIVATE LLVM ${CUDA_RUNTIME_LIBRARY} ${FULL_LINK_LIBS} ${LIBS})
+  else ()
+  target_link_libraries(mlir-cuda-runner PRIVATE LLVMCore LLVMSupport ${FULL_LINK_LIBS} ${LIBS})
+  endif ()
 
 endif()

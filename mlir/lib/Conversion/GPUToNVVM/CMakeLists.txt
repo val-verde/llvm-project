@@ -9,6 +9,9 @@ add_llvm_library(MLIRGPUtoNVVMTransforms
 add_dependencies(MLIRGPUtoNVVMTransforms
   MLIRGPUToNVVMIncGen)
 
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(MLIRGPUtoNVVMTransforms PUBLIC LLVM)
+else ()
 target_link_libraries(MLIRGPUtoNVVMTransforms
   LLVMSupport
   MLIRGPU
@@ -16,3 +19,4 @@ target_link_libraries(MLIRGPUtoNVVMTransforms
   MLIRNVVMIR
   MLIRPass
   )
+endif ()

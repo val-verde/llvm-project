@@ -11,4 +11,8 @@ add_dependencies(MLIRStandardOps
   MLIRIR
   LLVMSupport
   )
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(MLIRStandardOps PUBLIC LLVM)
+else ()
 target_link_libraries(MLIRStandardOps MLIRIR LLVMSupport)
+endif ()

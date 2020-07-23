@@ -13,7 +13,12 @@ set(LIB_LIBS
 add_llvm_library(MLIRMlirOptLib
   mlir-opt.cpp
 )
+
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(MLIRMlirOptLib PRIVATE ${LIB_LIBS})
+else ()
 target_link_libraries(MLIRMlirOptLib ${LIB_LIBS})
+endif ()
 
 set(LIBS
   MLIRAnalysis
@@ -64,5 +69,10 @@ add_llvm_tool(mlir-opt
  mlir-opt.cpp
 )
 llvm_update_compile_flags(mlir-opt)
+
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(mlir-opt PRIVATE MLIRIR MLIRMlirOptLib ${LIBS} LLVM)
+else ()
 whole_archive_link(mlir-opt ${LIBS})
 target_link_libraries(mlir-opt PRIVATE MLIRIR MLIRMlirOptLib ${LIBS} LLVMMC LLVMSupport)
+endif ()

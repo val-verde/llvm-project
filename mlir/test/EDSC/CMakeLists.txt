@@ -3,7 +3,22 @@ add_llvm_executable(mlir-edsc-builder-api-test
 )
 
 llvm_update_compile_flags(mlir-edsc-builder-api-test)
+target_include_directories(mlir-edsc-builder-api-test PRIVATE ..)
 
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(mlir-edsc-builder-api-test
+  PRIVATE
+  MLIRAnalysis
+  MLIRAffineOps
+  MLIREDSC
+  MLIRIR
+  MLIRLinalg
+  MLIRLoopOps
+  MLIRStandardOps
+  MLIRTransforms
+  LLVM
+)
+else ()
 target_link_libraries(mlir-edsc-builder-api-test
   PRIVATE
   MLIRAffineOps
@@ -16,9 +31,6 @@ target_link_libraries(mlir-edsc-builder-api-test
   LLVMCore
   LLVMSupport
 )
-
-target_include_directories(mlir-edsc-builder-api-test PRIVATE ..)
-
 whole_archive_link(mlir-edsc-builder-api-test
   MLIRAffineOps
   MLIRLinalg
@@ -26,3 +38,4 @@ whole_archive_link(mlir-edsc-builder-api-test
   MLIRStandardOps
   MLIRTransforms
 )
+endif ()

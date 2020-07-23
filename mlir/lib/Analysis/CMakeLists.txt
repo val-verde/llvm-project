@@ -26,4 +26,8 @@ add_dependencies(MLIRAnalysis
   MLIRLoopOps
   MLIRVectorOps
   )
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(MLIRAnalysis PUBLIC LLVM)
+else ()
 target_link_libraries(MLIRAnalysis MLIRAffineOps MLIRLoopOps MLIRVectorOps)
+endif ()

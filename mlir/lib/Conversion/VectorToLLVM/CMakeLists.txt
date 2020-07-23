@@ -12,4 +12,8 @@ set(LIBS
   )
 
 add_dependencies(MLIRVectorToLLVM ${LIBS})
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(MLIRVectorToLLVM PUBLIC LLVM)
+else ()
 target_link_libraries(MLIRVectorToLLVM ${LIBS})
+endif ()

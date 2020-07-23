@@ -11,7 +11,11 @@ add_llvm_library(MLIRSPIRVSerialization
 add_dependencies(MLIRSPIRVSerialization
   MLIRSPIRVSerializationGen)
 
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(MLIRSPIRVSerialization PUBLIC LLVM)
+else ()
 target_link_libraries(MLIRSPIRVSerialization
   MLIRIR
   MLIRSPIRV
   MLIRSupport)
+endif ()

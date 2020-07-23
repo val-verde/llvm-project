@@ -23,6 +23,9 @@ include_directories(${CMAKE_CURRENT_BINARY_DIR}/../DeclarativeTransforms)
 add_dependencies(MLIRTestTransforms MLIRStandardOpsIncGen)
 add_dependencies(MLIRTestTransforms MLIRTestLinalgTransformPatternsIncGen)
 add_dependencies(MLIRTestTransforms MLIRTestVectorTransformPatternsIncGen)
+if (LLVM_LINK_LLVM_DYLIB)
+target_link_libraries(MLIRTestTransforms PUBLIC LLVM)
+else ()
 target_link_libraries(MLIRTestTransforms
   MLIRAffineOps
   MLIRAnalysis
@@ -31,3 +34,4 @@ target_link_libraries(MLIRTestTransforms
   MLIRTestDialect
   MLIRVectorOps
   )
+endif ()

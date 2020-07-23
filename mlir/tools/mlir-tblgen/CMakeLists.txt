@@ -1,7 +1,13 @@
+if (LLVM_LINK_LLVM_DYLIB)
+set(LLVM_LINK_COMPONENTS
+  MLIRTableGen
+  )
+else ()
 set(LLVM_LINK_COMPONENTS
   MLIRTableGen
   Support
   )
+endif ()
 
 add_tablegen(mlir-tblgen MLIR
   EnumsGen.cpp
