@@ -237,8 +237,8 @@ if (LIBCXX_ENABLE_SHARED)
     # Since we most likely do not have a mt.exe replacement, disable the
     # manifest bundling.  This allows a normal cmake invocation to pass which
     # will attempt to use the manifest tool to generate the bundled manifest
-    set_target_properties(cxx_shared PROPERTIES
-                          APPEND_STRING PROPERTY LINK_FLAGS " /MANIFEST:NO")
+    # set_target_properties(cxx_shared PROPERTIES
+    #                      APPEND_STRING PROPERTY LINK_FLAGS " /MANIFEST:NO")
   endif()
 endif()
 
