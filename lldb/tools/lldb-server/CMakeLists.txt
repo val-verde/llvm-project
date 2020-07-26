@@ -45,8 +45,8 @@ add_lldb_tool(lldb-server
       lldbPluginInstructionMIPS
       lldbPluginInstructionMIPS64
       ${LLDB_SYSTEM_LIBS}
-      LLVMRemarks
-      clangTooling
+      LLVM
+      clang-cpp
 
     LINK_COMPONENTS
       Support
