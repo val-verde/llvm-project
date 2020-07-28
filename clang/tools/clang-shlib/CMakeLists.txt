@@ -1,5 +1,5 @@
 # Building libclang-cpp.so fails if LLVM_ENABLE_PIC=Off
-if (NOT LLVM_ENABLE_PIC)
+if (NOT WIN32 AND NOT LLVM_ENABLE_PIC)
   return()
 endif()
 
