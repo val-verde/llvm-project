@@ -10,12 +10,7 @@ add_clang_executable(clangd-indexer
 
 clang_target_link_libraries(clangd-indexer
   PRIVATE
-  clangAST
-  clangBasic
-  clangFrontend
-  clangIndex
-  clangLex
-  clangTooling
+  clang-cpp
 )
 target_link_libraries(clangd-indexer
   PRIVATE

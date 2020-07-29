@@ -16,18 +16,7 @@ add_clang_library(clangTidy
   ClangSACheckers
 
   LINK_LIBS
-  clangAnalysis
-  clangAST
-  clangASTMatchers
-  clangBasic
-  clangFormat
-  clangFrontend
-  clangLex
-  clangRewrite
-  clangSema
-  clangSerialization
-  clangTooling
-  clangToolingCore
+  clang-cpp
   )
 
 if(CLANG_ENABLE_STATIC_ANALYZER)

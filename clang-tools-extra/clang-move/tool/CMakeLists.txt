@@ -6,15 +6,7 @@ add_clang_tool(clang-move
 
 clang_target_link_libraries(clang-move
   PRIVATE
-  clangAST
-  clangASTMatchers
-  clangBasic
-  clangFormat
-  clangFrontend
-  clangRewrite
-  clangSerialization
-  clangTooling
-  clangToolingCore
+  clang-cpp
   )
 target_link_libraries(clang-move
   PRIVATE

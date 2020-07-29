@@ -4,13 +4,7 @@ add_clang_library(clangReorderFields
   ReorderFieldsAction.cpp
 
   LINK_LIBS
-  clangAST
-  clangASTMatchers
-  clangBasic
-  clangIndex
-  clangLex
-  clangSerialization
-  clangToolingCore
+  clang-cpp
   )
 
 add_subdirectory(tool)

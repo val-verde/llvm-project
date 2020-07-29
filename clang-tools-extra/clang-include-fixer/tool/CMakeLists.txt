@@ -6,13 +6,7 @@ add_clang_tool(clang-include-fixer
 
 clang_target_link_libraries(clang-include-fixer
   PRIVATE
-  clangBasic
-  clangFormat
-  clangFrontend
-  clangRewrite
-  clangSerialization
-  clangTooling
-  clangToolingCore
+  clang-cpp
   )
 target_link_libraries(clang-include-fixer
   PRIVATE

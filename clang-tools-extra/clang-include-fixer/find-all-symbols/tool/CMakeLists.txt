@@ -6,13 +6,7 @@ add_clang_tool(find-all-symbols
 
 clang_target_link_libraries(find-all-symbols
   PRIVATE
-  clangAST
-  clangASTMatchers
-  clangBasic
-  clangFrontend
-  clangLex
-  clangSerialization
-  clangTooling
+  clang-cpp
   )
 target_link_libraries(find-all-symbols
   PRIVATE

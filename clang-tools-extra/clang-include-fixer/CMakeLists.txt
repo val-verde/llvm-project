@@ -11,16 +11,7 @@ add_clang_library(clangIncludeFixer
   YamlSymbolIndex.cpp
 
   LINK_LIBS
-  clangAST
-  clangBasic
-  clangFormat
-  clangFrontend
-  clangLex
-  clangParse
-  clangSema
-  clangSerialization
-  clangTooling
-  clangToolingCore
+  clang-cpp
   findAllSymbols
   )
 

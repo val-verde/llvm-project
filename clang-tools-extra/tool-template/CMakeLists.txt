@@ -8,10 +8,5 @@ add_clang_executable(tool-template
 
 clang_target_link_libraries(tool-template
   PRIVATE
-  clangAST
-  clangASTMatchers
-  clangBasic
-  clangFrontend
-  clangTooling
-  clangToolingRefactoring
+  clang-cpp
   )

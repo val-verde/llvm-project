@@ -13,15 +13,10 @@ add_dependencies(clang-tidy
   )
 clang_target_link_libraries(clang-tidy
   PRIVATE
-  clangAST
-  clangASTMatchers
-  clangBasic
-  clangTooling
-  clangToolingCore
+  clang-cpp
   )
 target_link_libraries(clang-tidy
   PRIVATE
-  clangTidy
   ${ALL_CLANG_TIDY_CHECKS}
   )
 

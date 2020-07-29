@@ -110,22 +110,7 @@ add_clang_library(clangDaemon
   refactor/Tweak.cpp
 
   LINK_LIBS
-  clangAST
-  clangASTMatchers
-  clangBasic
-  clangDriver
-  clangFormat
-  clangFrontend
-  clangIndex
-  clangLex
-  clangSema
-  clangSerialization
-  clangTidy
-  clangTooling
-  clangToolingCore
-  clangToolingInclusions
-  clangToolingRefactoring
-  clangToolingSyntax
+  clang-cpp
   ${LLVM_PTHREAD_LIB}
   ${CLANGD_ATOMIC_LIB}
   ${ALL_CLANG_TIDY_CHECKS}

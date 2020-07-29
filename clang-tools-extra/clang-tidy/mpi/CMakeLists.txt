@@ -6,13 +6,5 @@ add_clang_library(clangTidyMPIModule
   TypeMismatchCheck.cpp
 
   LINK_LIBS
-  clangAnalysis
-  clangAST
-  clangASTMatchers
-  clangBasic
-  clangLex
-  clangTidy
-  clangTidyUtils
-  clangTooling
-  clangStaticAnalyzerCheckers
+  clang-cpp
   )

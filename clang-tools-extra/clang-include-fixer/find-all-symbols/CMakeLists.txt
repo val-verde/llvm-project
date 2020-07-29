@@ -13,12 +13,7 @@ add_clang_library(findAllSymbols
   SymbolInfo.cpp
 
   LINK_LIBS
-  clangAST
-  clangASTMatchers
-  clangBasic
-  clangFrontend
-  clangLex
-  clangTooling
+  clang-cpp
   )
 
 add_subdirectory(tool)

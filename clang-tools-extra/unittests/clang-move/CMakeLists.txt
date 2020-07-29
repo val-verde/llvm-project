@@ -17,15 +17,7 @@ add_extra_unittest(ClangMoveTests
 
 clang_target_link_libraries(ClangMoveTests
   PRIVATE
-  clangAST
-  clangASTMatchers
-  clangBasic
-  clangFormat
-  clangFrontend
-  clangRewrite
-  clangSerialization
-  clangTooling
-  clangToolingCore
+  clang-cpp
   )
 target_link_libraries(ClangMoveTests
   PRIVATE

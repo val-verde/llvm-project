@@ -9,16 +9,9 @@ add_clang_tool(clang-change-namespace
   )
 clang_target_link_libraries(clang-change-namespace
   PRIVATE
-  clangAST
-  clangASTMatchers
-  clangBasic
-  clangFormat
-  clangFrontend
-  clangRewrite
-  clangSerialization
-  clangTooling
-  clangToolingCore
+  clang-cpp
   )
+
 target_link_libraries(clang-change-namespace
   PRIVATE
   clangChangeNamespace

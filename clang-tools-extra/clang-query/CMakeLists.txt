@@ -8,12 +8,7 @@ add_clang_library(clangQuery
   QueryParser.cpp
 
   LINK_LIBS
-  clangAST
-  clangASTMatchers
-  clangBasic
-  clangDynamicASTMatchers
-  clangFrontend
-  clangSerialization
+  clang-cpp
   )
 
 add_subdirectory(tool)

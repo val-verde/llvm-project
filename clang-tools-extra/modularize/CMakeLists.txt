@@ -13,13 +13,7 @@ add_clang_tool(modularize
 
 clang_target_link_libraries(modularize
   PRIVATE
-  clangAST
-  clangBasic
-  clangDriver
-  clangFrontend
-  clangLex
-  clangSerialization
-  clangTooling
+  clang-cpp
   )
 
 install(TARGETS modularize

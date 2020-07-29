@@ -7,16 +7,7 @@ add_clang_library(clangMove
   HelperDeclRefGraph.cpp
 
   LINK_LIBS
-  clangAnalysis
-  clangAST
-  clangASTMatchers
-  clangBasic
-  clangFormat
-  clangFrontend
-  clangLex
-  clangSerialization
-  clangTooling
-  clangToolingCore
+  clang-cpp
   )
 
 add_subdirectory(tool)

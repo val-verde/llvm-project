@@ -11,7 +11,7 @@ add_clang_executable(dexp
 
 clang_target_link_libraries(dexp
   PRIVATE
-  clangBasic
+  clang-cpp
   )
 target_link_libraries(dexp
   PRIVATE

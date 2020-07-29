@@ -16,15 +16,7 @@ add_clang_library(clangDoc
   YAMLGenerator.cpp
 
   LINK_LIBS
-  clangAnalysis
-  clangAST
-  clangASTMatchers
-  clangBasic
-  clangFrontend
-  clangIndex
-  clangLex
-  clangTooling
-  clangToolingCore
+  clang-cpp
   )
 
 add_subdirectory(tool)
