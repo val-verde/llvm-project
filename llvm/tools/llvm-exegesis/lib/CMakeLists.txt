@@ -61,5 +61,8 @@ if(LLVM_ENABLE_LIBPFM AND HAVE_LIBPFM)
   list(APPEND libs pfm)
 endif()
 
+if (NOT LLVM_BUILD_LLVM_DYLIB)
 target_link_libraries(LLVMExegesis ${libs})
+endif ()
+
 set_target_properties(LLVMExegesis PROPERTIES FOLDER "Libraries")

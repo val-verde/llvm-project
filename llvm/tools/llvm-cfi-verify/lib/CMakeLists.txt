@@ -15,5 +15,9 @@ llvm_map_components_to_libnames(libs
   Support
   Symbolize
   )
+
+if (NOT LLVM_BUILD_LLVM_DYLIB)
 target_link_libraries(LLVMCFIVerify ${libs})
+endif ()
+
 set_target_properties(LLVMCFIVerify PROPERTIES FOLDER "Libraries")

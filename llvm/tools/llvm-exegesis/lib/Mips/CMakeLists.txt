@@ -14,5 +14,8 @@ llvm_map_components_to_libnames(libs
   Exegesis
   )
 
+if (NOT LLVM_BUILD_LLVM_DYLIB)
 target_link_libraries(LLVMExegesisMips ${libs})
+endif ()
+
 set_target_properties(LLVMExegesisMips PROPERTIES FOLDER "Libraries")

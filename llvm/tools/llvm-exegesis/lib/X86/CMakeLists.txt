@@ -14,5 +14,8 @@ llvm_map_components_to_libnames(libs
   Exegesis
   )
 
+if (NOT LLVM_BUILD_LLVM_DYLIB)
 target_link_libraries(LLVMExegesisX86 ${libs})
+endif ()
+
 set_target_properties(LLVMExegesisX86 PROPERTIES FOLDER "Libraries")
