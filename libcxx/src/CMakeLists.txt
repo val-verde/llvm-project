@@ -150,7 +150,7 @@ function(cxx_set_common_defines name)
   endif()
 
   if (LIBCXX_ENABLE_PARALLEL_ALGORITHMS)
-    target_link_libraries(${name} PUBLIC pstl::ParallelSTL)
+    add_dependencies(${name} pstl::ParallelSTL)
   endif()
 endfunction()
 
