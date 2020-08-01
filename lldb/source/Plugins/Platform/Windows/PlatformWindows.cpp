@@ -400,12 +400,43 @@ lldb::ProcessSP PlatformWindows::Attach(ProcessAttachInfo &attach_info,
 
 bool PlatformWindows::GetSupportedArchitectureAtIndex(uint32_t idx,
                                                       ArchSpec &arch) {
-  static SupportedArchList architectures;
+  if (IsHost()) {
+    ArchSpec hostArch = HostInfo::GetArchitecture(HostInfo::eArchKindDefault);
+    if (hostArch.GetTriple().isOSWindows()) {
+      if (idx == 0) {
+        arch = hostArch;
+        return arch.IsValid();
+      }
+    }
+  } else {
+    if (m_remote_platform_sp)
+      return m_remote_platform_sp->GetSupportedArchitectureAtIndex(idx, arch);
 
-  if (idx >= architectures.Count())
-    return false;
-  arch = architectures[idx];
-  return true;
+    llvm::Triple triple;
+    // Set the OS to Win32
+    triple.setOS(llvm::Triple::Win32);
+    // Set the architecture
+    switch (idx) {
+    case 0:
+      triple.setArchName("x86_64");
+      break;
+    case 1:
+      triple.setArchName("i386");
+      break;
+    default:
+      return false;
+    }
+    // Leave the vendor as "llvm::Triple:UnknownVendor" and don't specify the
+    // vendor by calling triple.SetVendorName("unknown") so that it is a
+    // "unspecified unknown". This means when someone calls
+    // triple.GetVendorName() it will return an empty string which indicates
+    // that the vendor can be set when two architectures are merged
+
+    // Now set the triple into "arch" and return true
+    arch.SetTriple(triple);
+    return true;
+  }
+  return false;
 }
 
 void PlatformWindows::GetStatus(Stream &strm) {
