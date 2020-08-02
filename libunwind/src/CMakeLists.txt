@@ -24,9 +24,10 @@ set(LIBUNWIND_ASM_SOURCES
     UnwindRegistersRestore.S
     UnwindRegistersSave.S
     )
+enable_language(ASM)
 set_source_files_properties(${LIBUNWIND_ASM_SOURCES}
                             PROPERTIES
-                              LANGUAGE C)
+                              LANGUAGE ASM)
 
 set(LIBUNWIND_HEADERS
     AddressSpace.hpp
