@@ -260,11 +260,6 @@ endif()
 # library.
 add_definitions(-D_LIBCXXABI_BUILDING_LIBRARY)
 
-# Disable DLL annotations on Windows for static builds.
-if (WIN32 AND LIBCXXABI_ENABLE_STATIC AND NOT LIBCXXABI_ENABLE_SHARED)
-  add_definitions(-D_LIBCXXABI_DISABLE_VISIBILITY_ANNOTATIONS)
-endif()
-
 add_compile_flags_if_supported(-Werror=return-type)
 
 # Get warning flags
