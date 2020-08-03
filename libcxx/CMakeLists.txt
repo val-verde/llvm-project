@@ -737,6 +737,7 @@ endif()
 # Link system libraries =======================================================
 function(cxx_link_system_libraries target)
   target_add_link_flags_if_supported(${target} PRIVATE "-nodefaultlibs")
+  target_add_link_flags_if_supported(${target} PRIVATE "-nostdlib++")
   target_add_compile_flags_if_supported(${target} PRIVATE "/Zl")
   target_add_link_flags_if_supported(${target} PRIVATE "/nodefaultlib")
 
