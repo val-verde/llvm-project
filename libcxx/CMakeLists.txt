@@ -558,6 +558,12 @@ function(cxx_add_basic_build_flags target)
   # library.
   target_compile_definitions(${target} PRIVATE -D_LIBCPP_BUILDING_LIBRARY)
 
+  # Windows targets re-exporting libc++ via a static library import need to
+  # define _LIBCXXABI_BUILDING_LIBRARY to avoid duplicate symbols.
+  if (WIN32 AND LIBCXX_STATICALLY_LINK_ABI_IN_SHARED_LIBRARY AND LIBCXX_CXX_ABI STREQUAL "libcxxabi")
+    target_compile_definitions(${target} PRIVATE -D_LIBCXXABI_BUILDING_LIBRARY)
+  endif()
+
   if (NOT LIBCXX_ENABLE_NEW_DELETE_DEFINITIONS)
     target_compile_definitions(${target} PRIVATE -D_LIBCPP_DISABLE_NEW_DELETE_DEFINITIONS)
   endif()
