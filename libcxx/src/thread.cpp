@@ -222,4 +222,32 @@ __thread_struct::__make_ready_at_thread_exit(__assoc_sub_state* __s)
 
 _LIBCPP_END_NAMESPACE_STD
 
+#if defined(_WIN32)
+int
+nanosleep(const struct timespec *req,
+          struct timespec *rem)
+{
+    memset(rem, 0, sizeof(*rem));
+
+    HANDLE timer;
+    LARGE_INTEGER li;
+    LONGLONG ns = req->tv_nsec;
+
+    if (!(timer = CreateWaitableTimer(NULL, TRUE, NULL))) {
+        return -1;
+    }
+
+    li.QuadPart = -ns;
+
+    if (!SetWaitableTimer(timer, &li, 0, NULL, NULL, FALSE)) {
+        CloseHandle(timer);
+        return -1;
+    }
+
+    WaitForSingleObject(timer, INFINITE);
+    CloseHandle(timer);
+    return 0;
+}
+#endif
+
 #endif // !_LIBCPP_HAS_NO_THREADS
