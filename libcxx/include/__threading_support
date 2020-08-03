@@ -318,6 +318,11 @@ bool __libcpp_thread_poll_with_backoff(
         return false; // _BFn completion means failure
     }
 }
+#if defined(_WIN32)
+int
+nanosleep(const struct timespec *req,
+          struct timespec *rem);
+#endif
 
 #if (!defined(_LIBCPP_HAS_THREAD_LIBRARY_EXTERNAL) || \
      defined(_LIBCPP_BUILDING_THREAD_LIBRARY_EXTERNAL))
