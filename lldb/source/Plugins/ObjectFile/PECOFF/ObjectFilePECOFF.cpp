@@ -195,21 +195,21 @@ size_t ObjectFilePECOFF::GetModuleSpecifications(
 
   switch (COFFObj->getMachine()) {
   case MachineAmd64:
-    spec.SetTriple("x86_64-pc-windows");
+    spec.SetTriple("x86_64-unknown-windows");
     specs.Append(module_spec);
     break;
   case MachineX86:
-    spec.SetTriple("i386-pc-windows");
+    spec.SetTriple("i386-unknown-windows");
     specs.Append(module_spec);
-    spec.SetTriple("i686-pc-windows");
+    spec.SetTriple("i686-unknown-windows");
     specs.Append(module_spec);
     break;
   case MachineArmNt:
-    spec.SetTriple("armv7-pc-windows");
+    spec.SetTriple("armv7-unknown-windows");
     specs.Append(module_spec);
     break;
   case MachineArm64:
-    spec.SetTriple("aarch64-pc-windows");
+    spec.SetTriple("aarch64-unknown-windows");
     specs.Append(module_spec);
     break;
   default:
