@@ -162,12 +162,14 @@
 #include <crtdbg.h>
 
 #define KMP_MEM_BLOCK _CLIENT_BLOCK
+#ifndef __GNUC__
 #define malloc(size) _malloc_dbg((size), KMP_MEM_BLOCK, __FILE__, __LINE__)
 #define calloc(num, size)                                                      \
   _calloc_dbg((num), (size), KMP_MEM_BLOCK, __FILE__, __LINE__)
 #define realloc(ptr, size)                                                     \
   _realloc_dbg((ptr), (size), KMP_MEM_BLOCK, __FILE__, __LINE__)
 #define free(ptr) _free_dbg((ptr), KMP_MEM_BLOCK)
+#endif
 
 #define _malloc_src_loc(size, file, line)                                      \
   _malloc_dbg((size), KMP_MEM_BLOCK, (file), (line))
