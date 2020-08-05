@@ -342,9 +342,9 @@ void Editline::SetCurrentLine(int line_index) {
 int Editline::GetPromptWidth() { return (int)PromptForIndex(0).length(); }
 
 bool Editline::IsEmacs() {
-  const char *editor;
+  const char *editor = nullptr;
   el_get(m_editline, EL_EDITOR, &editor);
-  return editor[0] == 'e';
+  return editor != nullptr && editor[0] == 'e';
 }
 
 bool Editline::IsOnlySpaces() {
@@ -380,6 +380,11 @@ int Editline::GetLineIndexForLocation(CursorLocation location, int cursor_row) {
 
 void Editline::MoveCursor(CursorLocation from, CursorLocation to) {
   const LineInfoW *info = el_wline(m_editline);
+
+  if (!info) {
+    return;
+  }
+
   int editline_cursor_position =
       (int)((info->cursor - info->buffer) + GetPromptWidth());
   int editline_cursor_row = editline_cursor_position / m_terminal_width;
