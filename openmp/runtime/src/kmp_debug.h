@@ -102,6 +102,8 @@ extern int kmp_diag;
   if (kmp_f_debug >= d) {                                                      \
     __kmp_debug_printf x;                                                      \
   }
+#undef KF_TRACE
+#define KF_TRACE(d, x) /* disable */
 #define K_DIAG(d, x)                                                           \
   {                                                                            \
     if (kmp_diag == d) {                                                       \
