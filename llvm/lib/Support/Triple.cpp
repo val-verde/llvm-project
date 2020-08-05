@@ -969,7 +969,7 @@ std::string Triple::normalize(StringRef Str) {
     Components[2] = "windows";
     if (Environment == UnknownEnvironment) {
       if (ObjectFormat == UnknownObjectFormat || ObjectFormat == Triple::COFF)
-        Components[3] = "msvc";
+        Components[3] = "gnu";
       else
         Components[3] = getObjectFormatTypeName(ObjectFormat);
     }
