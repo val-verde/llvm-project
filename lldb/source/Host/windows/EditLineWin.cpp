@@ -171,6 +171,7 @@ const char *el_gets(EditLine *el, int *length) {
     printf("%s", _prompt);
   // create a buffer for the user input
   char *buffer = new char[MAX_PATH];
+  *length = 0;
   // try to get user input string
   if (el_get_s(buffer, MAX_PATH)) {
     // get the string length in 'length'
