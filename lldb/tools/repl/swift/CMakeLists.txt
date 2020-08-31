@@ -25,7 +25,7 @@ elseif(CMAKE_SYSTEM_NAME STREQUAL Linux)
   endif()
   set_target_properties(repl_swift PROPERTIES
     BUILD_WITH_INSTALL_RPATH NO
-    INSTALL_RPATH "$ORIGIN/../lib/swift/linux")
+    INSTALL_RPATH "$ORIGIN/../lib:$ORIGIN/../lib/swift/linux")
 endif()
 
 # The dummy repl executable is a C program, but we always look for a mangled
