@@ -136,9 +136,11 @@ static void DupDescriptor(int error_fd, const FileSpec &file_spec, int fd,
     ExitWithError(error_fd, "pthread_sigmask");
 
   if (info.GetFlags().Test(eLaunchFlagDebug)) {
+  #ifndef __ANDROID__
     // Do not inherit setgid powers.
     if (setgid(getgid()) != 0)
       ExitWithError(error_fd, "setgid");
+  #endif
 
     // HACK:
     // Close everything besides stdin, stdout, and stderr that has no file
