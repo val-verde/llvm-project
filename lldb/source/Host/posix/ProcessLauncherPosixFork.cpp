@@ -155,9 +155,11 @@ struct ForkLaunchInfo {
     ExitWithError(error_fd, "pthread_sigmask");
 
   if (info.debug) {
+  #ifndef __ANDROID__
     // Do not inherit setgid powers.
     if (setgid(getgid()) != 0)
       ExitWithError(error_fd, "setgid");
+  #endif
 
     // HACK:
     // Close everything besides stdin, stdout, and stderr that has no file
