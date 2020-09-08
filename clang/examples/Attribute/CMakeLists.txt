@@ -1,6 +1,6 @@
 add_llvm_library(Attribute MODULE Attribute.cpp PLUGIN_TOOL clang)
 
-if(LLVM_ENABLE_PLUGINS AND (WIN32 OR CYGWIN))
+if(LLVM_ENABLE_PLUGINS AND (WIN32 OR CYGWIN) AND NOT LLVM_BUILD_LLVM_DYLIB)
   target_link_libraries(Attribute ${cmake_2_8_12_PRIVATE}
     clangAST
     clangBasic
