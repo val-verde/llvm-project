@@ -6,6 +6,7 @@
 //
 //===----------------------------------------------------------------------===//
 
+#define _LIBCPP_BUILDING_LIBRARY
 #include "../../libcxx/src/include/refstring.h"
 #include "stdexcept"
 #include "new"
