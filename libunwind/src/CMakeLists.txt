@@ -24,7 +24,7 @@ set(LIBUNWIND_ASM_SOURCES
     UnwindRegistersRestore.S
     UnwindRegistersSave.S
     )
-if (MINGW OR APPLE)
+if (APPLE)
   # CMake doesn't build assembly sources for windows/gnu targets properly
   # (up to current CMake, 3.16), so treat them as C files.
   # Additionally, CMake ignores OSX_ARCHITECTURE for ASM files when targeting
