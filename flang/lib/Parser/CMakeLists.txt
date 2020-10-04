@@ -1,3 +1,7 @@
+if (NOT LLVM_LINK_LLVM_DYLIB)
+  set (LINK_COMPONENTS
+       Support)
+endif ()
 
 add_flang_library(FortranParser
   Fortran-parsers.cpp
@@ -29,7 +33,7 @@ add_flang_library(FortranParser
   FortranCommon
 
   LINK_COMPONENTS
-  Support
+  ${LINK_COMPONENTS}
   FrontendOpenACC
 
   DEPENDS
