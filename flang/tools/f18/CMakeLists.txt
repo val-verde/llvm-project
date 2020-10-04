@@ -1,8 +1,16 @@
-set(LLVM_LINK_COMPONENTS
-  FrontendOpenACC
-  FrontendOpenMP
-  Support
+if (NOT LLVM_LINK_LLVM_DYLIB)
+  set(LLVM_LINK_COMPONENTS
+      FrontendOpenACC
+      FrontendOpenMP
+      Support
   )
+else ()
+  set(LLVM_LINK_COMPONENTS
+      FrontendOpenACC
+      FrontendOpenMP
+  )
+endif ()
+
 add_flang_tool(f18
   dump.cpp
   f18.cpp
