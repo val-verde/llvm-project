@@ -1,8 +1,3 @@
-set(LLVM_LINK_COMPONENTS
-  FrontendOpenACC
-  FrontendOpenMP
-  Support
-  )
 
 set(MODULES
   "__fortran_builtins"

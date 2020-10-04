@@ -30,11 +30,7 @@ add_flang_library(FortranLower
   FortranParser
   FortranEvaluate
   FortranSemantics
-  MLIRAffineToStandard
-  MLIRLLVMIR
-  MLIRSCFToStandard
-  MLIRStandard
 
   LINK_COMPONENTS
-  Support
+  ${LINK_COMPONENTS}
 )
