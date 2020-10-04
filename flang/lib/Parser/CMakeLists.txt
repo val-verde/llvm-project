@@ -28,7 +28,6 @@ add_flang_library(FortranParser
   FortranCommon
 
   LINK_COMPONENTS
-  Support
   FrontendOpenACC
 
   DEPENDS
