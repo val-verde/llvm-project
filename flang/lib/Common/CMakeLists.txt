@@ -1,3 +1,7 @@
+if (NOT LLVM_LINK_LLVM_DYLIB)
+  set (LIBS
+       Support)
+endif ()
 
 add_flang_library(FortranCommon
   Fortran.cpp
@@ -6,5 +10,5 @@ add_flang_library(FortranCommon
   idioms.cpp
 
   LINK_COMPONENTS
-  Support
+  ${LIBS}
 )
