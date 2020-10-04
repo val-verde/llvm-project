@@ -1,3 +1,6 @@
+set (LINK_COMPONENTS
+     Support)
+
 add_flang_library(FortranSemantics
   assignment.cpp
   attr.cpp
@@ -53,7 +56,7 @@ add_flang_library(FortranSemantics
   FortranEvaluate
 
   LINK_COMPONENTS
-  Support
+  ${LINK_COMPONENTS}
   FrontendOpenMP
   FrontendOpenACC
 )
