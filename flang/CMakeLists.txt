@@ -186,7 +186,10 @@ else()
     set(MLIR_MAIN_SRC_DIR ${LLVM_MAIN_SRC_DIR}/../mlir/include ) # --src-root
     set(MLIR_INCLUDE_DIR ${LLVM_MAIN_SRC_DIR}/../mlir/include ) # --includedir
     set(MLIR_TABLEGEN_OUTPUT_DIR ${CMAKE_BINARY_DIR}/tools/mlir/include)
+    find_program(MLIR_TABLEGEN_EXE "mlir-tblgen")
+    if(${MLIR_TABLEGEN_EXE} STREQUAL "MLIR_TABLEGEN_EXE-NOTFOUND")
     set(MLIR_TABLEGEN_EXE $<TARGET_FILE:mlir-tblgen>)
+    endif()
     include_directories(SYSTEM ${MLIR_INCLUDE_DIR})
     include_directories(SYSTEM ${MLIR_TABLEGEN_OUTPUT_DIR})
   endif()
