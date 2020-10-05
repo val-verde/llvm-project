@@ -96,8 +96,7 @@ if (CMAKE_SOURCE_DIR STREQUAL CMAKE_CURRENT_SOURCE_DIR)
     get_filename_component(MLIR_DIR_ABSOLUTE ${MLIR_DIR} REALPATH)
     list(APPEND CMAKE_MODULE_PATH ${MLIR_DIR_ABSOLUTE})
     include(AddMLIR)
-    find_program(MLIR_TABLEGEN_EXE "mlir-tblgen" ${LLVM_TOOLS_BINARY_DIR}
-      NO_DEFAULT_PATH)
+    find_program(MLIR_TABLEGEN_EXE "mlir-tblgen" ${LLVM_TOOLS_BINARY_DIR})
   endif()
 
   option(LLVM_INSTALL_TOOLCHAIN_ONLY
