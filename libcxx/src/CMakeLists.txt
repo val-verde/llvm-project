@@ -322,6 +322,7 @@ if (LIBCXX_ENABLE_EXPERIMENTAL_LIBRARY)
       OUTPUT_NAME   "c++experimental"
   )
   cxx_add_common_build_flags(cxx_experimental)
+  cxx_set_common_defines(cxx_experimental)
 endif()
 
 
