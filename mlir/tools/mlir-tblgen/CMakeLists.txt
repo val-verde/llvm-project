@@ -1,8 +1,10 @@
+if(NOT LLVM_LINK_LLVM_DYLIB)
 set(LLVM_LINK_COMPONENTS
   Demangle
   Support
   TableGen
-)
+  )
+endif()
 
 add_tablegen(mlir-tblgen MLIR
   DialectGen.cpp
