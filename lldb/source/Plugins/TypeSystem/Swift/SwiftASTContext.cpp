@@ -26,6 +26,7 @@
 #include "swift/AST/DiagnosticEngine.h"
 #include "swift/AST/DiagnosticsSema.h"
 #include "swift/AST/ExistentialLayout.h"
+#include "swift/AST/GenericParamList.h"
 #include "swift/AST/GenericSignature.h"
 #include "swift/AST/IRGenOptions.h"
 #include "swift/AST/ImportCache.h"
@@ -3360,9 +3361,13 @@ swift::ASTContext *SwiftASTContext::GetASTContext() {
   // diagnostic in the failure case.
   std::unique_ptr<swift::ModuleLoader> module_interface_loader_ap;
   if (loading_mode != swift::ModuleLoadingMode::OnlySerialized) {
+    m_ast_context_ap->addModuleInterfaceChecker(
+       std::make_unique<swift::ModuleInterfaceCheckerImpl>(*m_ast_context_ap, moduleCachePath, prebuiltModuleCachePath,
+         swift::ModuleInterfaceLoaderOptions()));
+
     std::unique_ptr<swift::ModuleLoader> module_interface_loader_ap(
         swift::ModuleInterfaceLoader::create(
-            *m_ast_context_ap, moduleCachePath, prebuiltModuleCachePath,
+            *m_ast_context_ap, *static_cast<swift::ModuleInterfaceCheckerImpl*>(m_ast_context_ap->getModuleInterfaceChecker()),
             m_dependency_tracker.get(), loading_mode));
     if (module_interface_loader_ap)
       m_ast_context_ap->addModuleLoader(std::move(module_interface_loader_ap));
