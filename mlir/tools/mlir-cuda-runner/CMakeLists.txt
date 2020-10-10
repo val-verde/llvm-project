@@ -34,10 +34,14 @@ if(MLIR_CUDA_RUNNER_ENABLED)
     PRIVATE ${CMAKE_CUDA_TOOLKIT_INCLUDE_DIRECTORIES}
     LLVMSupport
   )
+  if (NOT LLVM_LINK_LLVM_DYLIB)
+    set(LIBS
+        LLVMSupport)
+  endif()
   target_link_libraries(cuda-runtime-wrappers
     PUBLIC
-    LLVMSupport
     ${CUDA_RUNTIME_LIBRARY}
+    ${LIBS}
   )
 
   get_property(dialect_libs GLOBAL PROPERTY MLIR_DIALECT_LIBS)
@@ -70,6 +74,10 @@ if(MLIR_CUDA_RUNNER_ENABLED)
     LIST(APPEND targets_to_link "LLVM${t}")
   ENDFOREACH(t)
 
+  set(LLVM_LINK_COMPONENTS
+    Core
+    Support
+  )
   add_llvm_tool(mlir-cuda-runner
     mlir-cuda-runner.cpp
 
