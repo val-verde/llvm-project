@@ -172,10 +172,6 @@ Attribute Attribute::getWithByValType(LLVMContext &Context, Type *Ty) {
   return get(Context, ByVal, Ty);
 }
 
-Attribute Attribute::getWithStructRetType(LLVMContext &Context, Type *Ty) {
-  return get(Context, StructRet, Ty);
-}
-
 Attribute Attribute::getWithByRefType(LLVMContext &Context, Type *Ty) {
   return get(Context, ByRef, Ty);
 }
@@ -437,6 +433,8 @@ std::string Attribute::getAsString(bool InAttrGrp) const {
     return "shadowcallstack";
   if (hasAttribute(Attribute::StrictFP))
     return "strictfp";
+  if (hasAttribute(Attribute::StructRet))
+    return "sret";
   if (hasAttribute(Attribute::SanitizeThread))
     return "sanitize_thread";
   if (hasAttribute(Attribute::SanitizeMemory))
@@ -454,10 +452,9 @@ std::string Attribute::getAsString(bool InAttrGrp) const {
   if (hasAttribute(Attribute::MustProgress))
     return "mustprogress";
 
-  const bool IsByVal = hasAttribute(Attribute::ByVal);
-  if (IsByVal || hasAttribute(Attribute::StructRet)) {
+  if (hasAttribute(Attribute::ByVal)) {
     std::string Result;
-    Result += IsByVal ? "byval" : "sret";
+    Result += "byval";
     if (Type *Ty = getValueAsType()) {
       raw_string_ostream OS(Result);
       Result += '(';
@@ -759,10 +756,6 @@ Type *AttributeSet::getByValType() const {
   return SetNode ? SetNode->getByValType() : nullptr;
 }
 
-Type *AttributeSet::getStructRetType() const {
-  return SetNode ? SetNode->getStructRetType() : nullptr;
-}
-
 Type *AttributeSet::getPreallocatedType() const {
   return SetNode ? SetNode->getPreallocatedType() : nullptr;
 }
@@ -859,9 +852,6 @@ AttributeSetNode *AttributeSetNode::get(LLVMContext &C, const AttrBuilder &B) {
     case Attribute::ByVal:
       Attr = Attribute::getWithByValType(C, B.getByValType());
       break;
-    case Attribute::StructRet:
-      Attr = Attribute::getWithStructRetType(C, B.getStructRetType());
-      break;
     case Attribute::ByRef:
       Attr = Attribute::getWithByRefType(C, B.getByRefType());
       break;
@@ -947,12 +937,6 @@ MaybeAlign AttributeSetNode::getStackAlignment() const {
 
 Type *AttributeSetNode::getByValType() const {
   if (auto A = findEnumAttribute(Attribute::ByVal))
-    return A->getValueAsType();
-  return nullptr;
-}
-
-Type *AttributeSetNode::getStructRetType() const {
-  if (auto A = findEnumAttribute(Attribute::StructRet))
     return A->getValueAsType();
   return nullptr;
 }
@@ -1484,10 +1468,6 @@ Type *AttributeList::getParamByValType(unsigned Index) const {
   return getAttributes(Index+FirstArgIndex).getByValType();
 }
 
-Type *AttributeList::getParamStructRetType(unsigned Index) const {
-  return getAttributes(Index + FirstArgIndex).getStructRetType();
-}
-
 Type *AttributeList::getParamByRefType(unsigned Index) const {
   return getAttributes(Index + FirstArgIndex).getByRefType();
 }
@@ -1577,7 +1557,6 @@ void AttrBuilder::clear() {
   DerefBytes = DerefOrNullBytes = 0;
   AllocSizeArgs = 0;
   ByValType = nullptr;
-  StructRetType = nullptr;
   ByRefType = nullptr;
   PreallocatedType = nullptr;
 }
@@ -1597,8 +1576,6 @@ AttrBuilder &AttrBuilder::addAttribute(Attribute Attr) {
     StackAlignment = Attr.getStackAlignment();
   else if (Kind == Attribute::ByVal)
     ByValType = Attr.getValueAsType();
-  else if (Kind == Attribute::StructRet)
-    StructRetType = Attr.getValueAsType();
   else if (Kind == Attribute::ByRef)
     ByRefType = Attr.getValueAsType();
   else if (Kind == Attribute::Preallocated)
@@ -1627,8 +1604,6 @@ AttrBuilder &AttrBuilder::removeAttribute(Attribute::AttrKind Val) {
     StackAlignment.reset();
   else if (Val == Attribute::ByVal)
     ByValType = nullptr;
-  else if (Val == Attribute::StructRet)
-    StructRetType = nullptr;
   else if (Val == Attribute::ByRef)
     ByRefType = nullptr;
   else if (Val == Attribute::Preallocated)
@@ -1721,12 +1696,6 @@ AttrBuilder &AttrBuilder::addByValAttr(Type *Ty) {
   return *this;
 }
 
-AttrBuilder &AttrBuilder::addStructRetAttr(Type *Ty) {
-  Attrs[Attribute::StructRet] = true;
-  StructRetType = Ty;
-  return *this;
-}
-
 AttrBuilder &AttrBuilder::addByRefAttr(Type *Ty) {
   Attrs[Attribute::ByRef] = true;
   ByRefType = Ty;
@@ -1758,9 +1727,6 @@ AttrBuilder &AttrBuilder::merge(const AttrBuilder &B) {
 
   if (!ByValType)
     ByValType = B.ByValType;
-
-  if (!StructRetType)
-    StructRetType = B.StructRetType;
 
   if (!ByRefType)
     ByRefType = B.ByRefType;
@@ -1795,9 +1761,6 @@ AttrBuilder &AttrBuilder::remove(const AttrBuilder &B) {
 
   if (B.ByValType)
     ByValType = nullptr;
-
-  if (B.StructRetType)
-    StructRetType = nullptr;
 
   if (B.ByRefType)
     ByRefType = nullptr;
@@ -1865,8 +1828,7 @@ bool AttrBuilder::operator==(const AttrBuilder &B) {
 
   return Alignment == B.Alignment && StackAlignment == B.StackAlignment &&
          DerefBytes == B.DerefBytes && ByValType == B.ByValType &&
-         StructRetType == B.StructRetType && ByRefType == B.ByRefType &&
-         PreallocatedType == B.PreallocatedType;
+         ByRefType == B.ByRefType && PreallocatedType == B.PreallocatedType;
 }
 
 //===----------------------------------------------------------------------===//
@@ -1893,10 +1855,10 @@ AttrBuilder AttributeFuncs::typeIncompatible(Type *Ty) {
         .addDereferenceableOrNullAttr(1) // the int here is ignored
         .addAttribute(Attribute::ReadNone)
         .addAttribute(Attribute::ReadOnly)
+        .addAttribute(Attribute::StructRet)
         .addAttribute(Attribute::InAlloca)
         .addPreallocatedAttr(Ty)
         .addByValAttr(Ty)
-        .addStructRetAttr(Ty)
         .addByRefAttr(Ty);
 
   // Some attributes can apply to all "values" but there are no `void` values.
