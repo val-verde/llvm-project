@@ -591,7 +591,7 @@ function(llvm_add_library name)
       if(${output_name} STREQUAL "output_name-NOTFOUND")
         set(output_name ${name})
       endif()
-      set(library_name ${output_name}-${LLVM_VERSION_MAJOR}${LLVM_VERSION_SUFFIX})
+      set(library_name ${output_name})
       set(api_name ${output_name}-${LLVM_VERSION_MAJOR}.${LLVM_VERSION_MINOR}.${LLVM_VERSION_PATCH}${LLVM_VERSION_SUFFIX})
       set_target_properties(${name} PROPERTIES OUTPUT_NAME ${library_name})
       llvm_install_library_symlink(${api_name} ${library_name} SHARED
