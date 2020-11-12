@@ -82,7 +82,7 @@ static cl::opt<OptimizerChoice>
               cl::values(clEnumValN(OPTIMIZER_NONE, "none", "No optimizer"),
                          clEnumValN(OPTIMIZER_ISL, "isl",
                                     "The isl scheduling optimizer")),
-              cl::Hidden, cl::init(OPTIMIZER_ISL), cl::ZeroOrMore,
+              cl::Hidden, cl::init(OPTIMIZER_NONE), cl::ZeroOrMore,
               cl::cat(PollyCategory));
 
 enum CodeGenChoice { CODEGEN_FULL, CODEGEN_AST, CODEGEN_NONE };
@@ -489,12 +489,9 @@ static void buildDefaultPollyPipeline(FunctionPassManager &PM,
   assert(!PollyPrinter && "This option is not implemented");
   assert(!PollyOnlyPrinter && "This option is not implemented");
   assert(!EnablePolyhedralInfo && "This option is not implemented");
-  assert(!EnableDeLICM && "This option is not implemented");
-  assert(!EnableSimplify && "This option is not implemented");
   if (ImportJScop)
     SPM.addPass(JSONImportPass());
   assert(!DeadCodeElim && "This option is not implemented");
-  assert(!EnablePruneUnprofitable && "This option is not implemented");
   if (Target == TARGET_CPU || Target == TARGET_HYBRID)
     switch (Optimizer) {
     case OPTIMIZER_NONE:
@@ -522,7 +519,8 @@ static void buildDefaultPollyPipeline(FunctionPassManager &PM,
 #endif
 
   PM.addPass(CodePreparationPass());
-  PM.addPass(createFunctionToScopPassAdaptor(std::move(SPM)));
+  if (Optimizer == OPTIMIZER_ISL)
+    PM.addPass(createFunctionToScopPassAdaptor(std::move(SPM)));
   PM.addPass(PB.buildFunctionSimplificationPipeline(
       Level, PassBuilder::ThinLTOPhase::None)); // Cleanup
 
