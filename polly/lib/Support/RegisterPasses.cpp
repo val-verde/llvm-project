@@ -94,7 +94,7 @@ static cl::opt<OptimizerChoice>
               cl::values(clEnumValN(OPTIMIZER_NONE, "none", "No optimizer"),
                          clEnumValN(OPTIMIZER_ISL, "isl",
                                     "The isl scheduling optimizer")),
-              cl::Hidden, cl::init(OPTIMIZER_ISL), cl::ZeroOrMore,
+              cl::Hidden, cl::init(OPTIMIZER_NONE), cl::ZeroOrMore,
               cl::cat(PollyCategory));
 
 enum CodeGenChoice { CODEGEN_FULL, CODEGEN_AST, CODEGEN_NONE };
@@ -589,7 +589,8 @@ static void buildCommonPollyPipeline(FunctionPassManager &PM,
         "Option -polly-target=hybrid not supported for NPM", false);
 #endif
 
-  PM.addPass(createFunctionToScopPassAdaptor(std::move(SPM)));
+  if (Optimizer == OPTIMIZER_ISL)
+    PM.addPass(createFunctionToScopPassAdaptor(std::move(SPM)));
   PM.addPass(PB.buildFunctionSimplificationPipeline(
       Level, llvm::ThinOrFullLTOPhase::None)); // Cleanup
 
