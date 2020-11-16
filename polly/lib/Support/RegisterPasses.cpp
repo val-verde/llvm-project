@@ -137,7 +137,7 @@ static cl::opt<polly::VectorizerChoice, true> Vectorizer(
         clEnumValN(
             polly::VECTORIZER_STRIPMINE, "stripmine",
             "Strip-mine outer loops for the loop-vectorizer to trigger")),
-    cl::location(PollyVectorizerChoice), cl::init(polly::VECTORIZER_NONE),
+    cl::location(PollyVectorizerChoice), cl::init(polly::VECTORIZER_STRIPMINE),
     cl::ZeroOrMore, cl::cat(PollyCategory));
 
 static cl::opt<bool> ImportJScop(
