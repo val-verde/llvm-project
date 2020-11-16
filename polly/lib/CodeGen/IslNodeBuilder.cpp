@@ -105,7 +105,7 @@ static cl::opt<OpenMPBackend> PollyOmpBackend(
     "polly-omp-backend", cl::desc("Choose the OpenMP library to use:"),
     cl::values(clEnumValN(OpenMPBackend::GNU, "GNU", "GNU OpenMP"),
                clEnumValN(OpenMPBackend::LLVM, "LLVM", "LLVM OpenMP")),
-    cl::Hidden, cl::init(OpenMPBackend::GNU), cl::cat(PollyCategory));
+    cl::Hidden, cl::init(OpenMPBackend::LLVM), cl::cat(PollyCategory));
 
 isl::ast_expr IslNodeBuilder::getUpperBound(isl::ast_node For,
                                             ICmpInst::Predicate &Predicate) {
