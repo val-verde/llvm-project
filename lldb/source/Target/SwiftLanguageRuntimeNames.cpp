@@ -300,7 +300,7 @@ static lldb::ThreadPlanSP GetStepThroughTrampolinePlan(Thread &thread,
     AddressRange sym_addr_range(sc.symbol->GetAddress(),
                                 sc.symbol->GetByteSize());
     new_thread_plan_sp.reset(new ThreadPlanStepInRange(
-        thread, sym_addr_range, sc, function_name.c_str(), eOnlyDuringStepping,
+        thread, sym_addr_range, sc, eOnlyDuringStepping,
         eLazyBoolNo, eLazyBoolNo));
     return new_thread_plan_sp;
 
@@ -312,7 +312,7 @@ static lldb::ThreadPlanSP GetStepThroughTrampolinePlan(Thread &thread,
     AddressRange sym_addr_range(sc.symbol->GetAddress(),
                                 sc.symbol->GetByteSize());
     new_thread_plan_sp.reset(new ThreadPlanStepInRange(
-        thread, sym_addr_range, sc, nullptr, eOnlyDuringStepping, eLazyBoolNo,
+        thread, sym_addr_range, sc, eOnlyDuringStepping, eLazyBoolNo,
         eLazyBoolNo));
     return new_thread_plan_sp;
   } break;
