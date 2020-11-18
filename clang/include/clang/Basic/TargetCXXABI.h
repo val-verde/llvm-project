@@ -109,7 +109,7 @@ public:
       return true;
 
     case Microsoft:
-      return T.isKnownWindowsMSVCEnvironment();
+      return T.isWindowsMSVCEnvironment();
     }
     llvm_unreachable("invalid CXXABI kind");
   };
