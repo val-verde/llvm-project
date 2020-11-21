@@ -61,6 +61,7 @@ add_lldb_tool(lldb-server
 
     LINK_COMPONENTS
       Option
+      RuntimeDyld
       Support
 )
 
