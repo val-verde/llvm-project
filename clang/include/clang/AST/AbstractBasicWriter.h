@@ -165,6 +165,8 @@ public:
       asImpl().writeUInt64(words[i]);
   }
 
+  void writeAPValue(const APValue &Value) { asImpl().writeAPValue(Value); }
+
   void writeFixedPointSemantics(const llvm::FixedPointSemantics &sema) {
     asImpl().writeUInt32(sema.getWidth());
     asImpl().writeUInt32(sema.getScale());
