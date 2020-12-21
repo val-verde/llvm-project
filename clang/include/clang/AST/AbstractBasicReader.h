@@ -177,6 +177,10 @@ public:
     return llvm::APInt(bitWidth, numWords, &data[0]);
   }
 
+  APValue readAPValue() {
+      return asImpl().readAPValue();
+  }
+
   llvm::FixedPointSemantics readFixedPointSemantics() {
     unsigned width = asImpl().readUInt32();
     unsigned scale = asImpl().readUInt32();
