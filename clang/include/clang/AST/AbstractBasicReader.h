@@ -177,6 +177,10 @@ public:
     return llvm::APInt(bitWidth, numWords, &data[0]);
   }
 
+  APValue readAPValue() {
+      return asImpl().readAPValue();
+  }
+
   Qualifiers readQualifiers() {
     static_assert(sizeof(Qualifiers().getAsOpaqueValue()) <= sizeof(uint64_t),
                   "update this if the value size changes");

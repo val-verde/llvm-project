@@ -163,6 +163,8 @@ public:
       asImpl().writeUInt64(words[i]);
   }
 
+  void writeAPValue(const APValue &Value) { asImpl().writeAPValue(Value); }
+
   void writeQualifiers(Qualifiers value) {
     static_assert(sizeof(value.getAsOpaqueValue()) <= sizeof(uint64_t),
                   "update this if the value size changes");
