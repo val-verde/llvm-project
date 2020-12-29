@@ -507,6 +507,8 @@ public:
 
   bool IsFunctionPointerType(lldb::opaque_compiler_type_t type) override;
 
+  bool IsScopedEnumerationType(lldb::opaque_compiler_type_t type) override;
+
   bool IsPossibleDynamicType(lldb::opaque_compiler_type_t type,
                              CompilerType *target_type, // Can pass NULL
                              bool check_cplusplus, bool check_objc) override;
@@ -587,6 +589,8 @@ public:
                                    ExecutionContextScope *exe_scope) override;
 
   CompilerType GetCanonicalType(lldb::opaque_compiler_type_t type) override;
+
+  CompilerType GetEnumerationIntegerType(lldb::opaque_compiler_type_t type) override;
 
   CompilerType GetInstanceType(lldb::opaque_compiler_type_t type) override;
 
