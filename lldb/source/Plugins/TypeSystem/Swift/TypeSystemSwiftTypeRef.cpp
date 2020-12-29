@@ -1773,6 +1773,12 @@ bool TypeSystemSwiftTypeRef::IsFunctionPointerType(
                       (ReconstructType(type)));
 }
 
+bool TypeSystemSwiftTypeRef::IsScopedEnumerationType(lldb::opaque_compiler_type_t type) {
+  auto impl = [&]() -> bool { return IsScopedEnumerationType(type); };
+  VALIDATE_AND_RETURN(impl, IsFunctionPointerType, type,
+                      (ReconstructType(type)));
+}
+
 bool TypeSystemSwiftTypeRef::IsPossibleDynamicType(opaque_compiler_type_t type,
                                                    CompilerType *target_type,
                                                    bool check_cplusplus,
@@ -1982,6 +1988,14 @@ TypeSystemSwiftTypeRef::GetCanonicalType(opaque_compiler_type_t type) {
   };
   VALIDATE_AND_RETURN(impl, GetCanonicalType, type, (ReconstructType(type)));
 }
+
+CompilerType
+TypeSystemSwiftTypeRef::GetEnumerationIntegerType(lldb::opaque_compiler_type_t type) {
+  auto impl = [&]() -> CompilerType  { return GetEnumerationIntegerType(type); };
+  VALIDATE_AND_RETURN(impl, GetEnumerationIntegerType, type,
+                      (ReconstructType(type)));
+}
+
 int TypeSystemSwiftTypeRef::GetFunctionArgumentCount(
     opaque_compiler_type_t type) {
   auto impl = [&]() -> int { return GetNumberOfFunctionArguments(type); };
