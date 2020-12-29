@@ -104,6 +104,7 @@ public:
   CompilerType GetFunctionArgumentAtIndex(lldb::opaque_compiler_type_t type,
                                           const size_t index) override;
   bool IsFunctionPointerType(lldb::opaque_compiler_type_t type) override;
+  bool IsScopedEnumerationType(lldb::opaque_compiler_type_t type) override;
   bool IsPossibleDynamicType(lldb::opaque_compiler_type_t type,
                              CompilerType *target_type, // Can pass NULL
                              bool check_cplusplus, bool check_objc) override;
@@ -125,6 +126,7 @@ public:
   CompilerType GetArrayElementType(lldb::opaque_compiler_type_t type,
                                    ExecutionContextScope *exe_scope) override;
   CompilerType GetCanonicalType(lldb::opaque_compiler_type_t type) override;
+  CompilerType GetEnumerationIntegerType(lldb::opaque_compiler_type_t type) override;
   int GetFunctionArgumentCount(lldb::opaque_compiler_type_t type) override;
   CompilerType GetFunctionArgumentTypeAtIndex(lldb::opaque_compiler_type_t type,
                                               size_t idx) override;
