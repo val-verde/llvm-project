@@ -5140,6 +5140,10 @@ bool SwiftASTContext::IsFunctionPointerType(opaque_compiler_type_t type) {
   return IsFunctionType(type); // FIXME: think about this
 }
 
+bool SwiftASTContext::IsScopedEnumerationType(lldb::opaque_compiler_type_t type) {
+  return IsScopedEnumerationType(type);
+}
+
 bool SwiftASTContext::IsPointerType(opaque_compiler_type_t type,
                                     CompilerType *pointee_type) {
   VALID_OR_RETURN(false);
@@ -5706,6 +5710,10 @@ CompilerType SwiftASTContext::GetCanonicalType(opaque_compiler_type_t type) {
   VALID_OR_RETURN_CHECK_TYPE(type, CompilerType());
 
   return ToCompilerType({GetCanonicalSwiftType(type).getPointer()});
+}
+
+CompilerType SwiftASTContext::GetEnumerationIntegerType(lldb::opaque_compiler_type_t type) {
+  return GetEnumerationIntegerType(type);
 }
 
 CompilerType SwiftASTContext::GetInstanceType(opaque_compiler_type_t type) {
