@@ -43,6 +43,7 @@ add_lld_library(lldMachO
   ObjCARCOpts
   Object
   Option
+  ObjCARCOpts
   Passes
   Support
   TextAPI
