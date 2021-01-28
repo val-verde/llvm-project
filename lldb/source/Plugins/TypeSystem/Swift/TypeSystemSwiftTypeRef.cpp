@@ -1821,7 +1821,7 @@ bool TypeSystemSwiftTypeRef::IsFunctionPointerType(
 bool TypeSystemSwiftTypeRef::IsScopedEnumerationType(lldb::opaque_compiler_type_t type) {
   auto impl = [&]() -> bool { return IsScopedEnumerationType(type); };
   VALIDATE_AND_RETURN(impl, IsFunctionPointerType, type,
-                      (ReconstructType(type)));
+                      (ReconstructType(type)), (ReconstructType(type)));
 }
 
 bool TypeSystemSwiftTypeRef::IsPossibleDynamicType(opaque_compiler_type_t type,
@@ -2046,7 +2046,7 @@ CompilerType
 TypeSystemSwiftTypeRef::GetEnumerationIntegerType(lldb::opaque_compiler_type_t type) {
   auto impl = [&]() -> CompilerType  { return GetEnumerationIntegerType(type); };
   VALIDATE_AND_RETURN(impl, GetEnumerationIntegerType, type,
-                      (ReconstructType(type)));
+                      (ReconstructType(type)), (ReconstructType(type)));
 }
 
 int TypeSystemSwiftTypeRef::GetFunctionArgumentCount(
@@ -2177,12 +2177,13 @@ TypeSystemSwiftTypeRef::GetBitSize(opaque_compiler_type_t type,
     return {};
   };
   FALLBACK(GetBitSize, (ReconstructType(type), exe_scope));
-  if (exe_scope && exe_scope->CalculateProcess())
+  if (exe_scope && exe_scope->CalculateProcess()) {
     VALIDATE_AND_RETURN(impl, GetBitSize, type,
                         (ReconstructType(type), exe_scope),
                         (ReconstructType(type), exe_scope));
-  else
+  } else {
     return impl();
+  }
 }
 
 llvm::Optional<uint64_t>
