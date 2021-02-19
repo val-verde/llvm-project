@@ -1822,7 +1822,7 @@ bool SwiftLanguageRuntimeImpl::GetDynamicTypeAndAddress_Protocol(
 
   if (in_value.GetValueType() == eValueTypeConstResult &&
       in_value.GetValue().GetValueType() ==
-          lldb_private::Value::eValueTypeHostAddress) {
+          lldb_private::Value::ValueType::HostAddress) {
     if (log)
       log->Printf("existential value is a const result");
 
@@ -2360,7 +2360,7 @@ Value::ValueType SwiftLanguageRuntimeImpl::GetValueType(
         return {};
       if (swift_ast_ctx->IsErrorType(static_type.GetOpaqueQualType())) {
         // ErrorType values are always a pointer
-        return Value::eValueTypeLoadAddress;
+        return Value::ValueType::LoadAddress;
       }
 
       if (auto *ts = llvm::dyn_cast_or_null<TypeSystemSwift>(
@@ -2375,7 +2375,7 @@ Value::ValueType SwiftLanguageRuntimeImpl::GetValueType(
           return static_value_type;
         case SwiftASTContext::TypeAllocationStrategy::ePointer: // pointed-to;
                                                                 // in the target
-          return Value::eValueTypeLoadAddress;
+          return Value::ValueType::LoadAddress;
         }
     }
     if (static_type_flags.AllSet(eTypeIsSwift | eTypeIsGenericTypeParam)) {
@@ -2387,25 +2387,25 @@ Value::ValueType SwiftLanguageRuntimeImpl::GetValueType(
       // ObjC classes
       if (dynamic_type_flags.AllClear(eTypeIsPointer | eTypeIsReference |
                                       eTypeInstanceIsPointer))
-        return Value::eValueTypeLoadAddress;
+        return Value::ValueType::LoadAddress;
     }
 
     if (static_type_flags.AllSet(eTypeIsSwift | eTypeIsPointer) &&
         static_type_flags.AllClear(eTypeIsGenericTypeParam)) {
       // FIXME: This branch is not covered by any testcases in the test suite.
       if (is_indirect_enum_case || static_type_flags.AllClear(eTypeIsBuiltIn))
-        return Value::eValueTypeLoadAddress;
+        return Value::ValueType::LoadAddress;
     }
   }
 
   // Enabling this makes the inout_variables test hang.
-  //  return Value::eValueTypeScalar;
+  //  return Value::ValueType::Scalar;
   if (static_type_flags.AllSet(eTypeIsSwift) &&
       dynamic_type_flags.AllSet(eTypeIsSwift) &&
       dynamic_type_flags.AllClear(eTypeIsPointer | eTypeInstanceIsPointer))
     return static_value_type;
   else
-    return Value::eValueTypeScalar;
+    return Value::ValueType::Scalar;
 }
 
 bool SwiftLanguageRuntimeImpl::GetDynamicTypeAndAddress_ClangType(
