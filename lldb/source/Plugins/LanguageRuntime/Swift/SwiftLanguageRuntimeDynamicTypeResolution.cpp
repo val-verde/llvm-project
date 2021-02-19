@@ -2463,7 +2463,7 @@ SwiftLanguageRuntimeImpl::GetValueType(ValueObject &in_value,
   }
 
   // Enabling this makes the inout_variables test hang.
-  //  return Value::eValueTypeScalar;
+  //  return Value::ValueType::Scalar;
   if (static_type_flags.AllSet(eTypeIsSwift) &&
       dynamic_type_flags.AllSet(eTypeIsSwift) &&
       dynamic_type_flags.AllClear(eTypeIsPointer | eTypeInstanceIsPointer))
