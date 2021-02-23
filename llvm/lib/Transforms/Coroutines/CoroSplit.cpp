@@ -902,9 +902,10 @@ void CoroCloner::create() {
                          Shape.FrameSize, Shape.FrameAlign);
     break;
   case coro::ABI::Async: {
-    if (OrigF.hasParamAttribute(Shape.AsyncLowering.ContextArgNo,
-                                Attribute::SwiftAsync)) {
-      addAsyncContextAttrs(NewAttrs, Context, Shape.AsyncLowering.ContextArgNo);
+    auto *ActiveAsyncSuspend = cast<CoroSuspendAsyncInst>(ActiveSuspend);
+    auto ContextArgIndex = ActiveAsyncSuspend->getStorageArgumentIndex();
+    if (OrigF.hasParamAttribute(ContextArgIndex, Attribute::SwiftAsync)) {
+      addAsyncContextAttrs(NewAttrs, Context, ContextArgIndex);
     }
     // Transfer the original function's attributes.
     auto FnAttrs = OrigF.getAttributes().getFnAttributes();
