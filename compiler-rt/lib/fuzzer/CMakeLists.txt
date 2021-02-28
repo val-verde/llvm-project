@@ -163,7 +163,8 @@ if(OS_NAME MATCHES "Linux|Fuchsia" AND
                  -DCMAKE_POSITION_INDEPENDENT_CODE=ON
                  -DLIBCXXABI_ENABLE_EXCEPTIONS=OFF
                  -DLIBCXX_ABI_NAMESPACE=__Fuzzer
-                 -DLIBCXX_ENABLE_EXCEPTIONS=OFF)
+                 -DLIBCXX_ENABLE_EXCEPTIONS=OFF
+                 -DLIBCXX_INCLUDE_BENCHMARKS=${LIBCXX_INCLUDE_BENCHMARKS})
     target_compile_options(RTfuzzer.${arch} PRIVATE -isystem ${LIBCXX_${arch}_PREFIX}/include/c++/v1)
     add_dependencies(RTfuzzer.${arch} libcxx_fuzzer_${arch}-build)
     target_compile_options(RTfuzzer_main.${arch} PRIVATE -isystem ${LIBCXX_${arch}_PREFIX}/include/c++/v1)
