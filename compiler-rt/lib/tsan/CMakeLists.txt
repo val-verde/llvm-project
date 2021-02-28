@@ -270,6 +270,7 @@ if(COMPILER_RT_LIBCXX_PATH AND
     add_custom_libcxx(libcxx_tsan_${arch} ${LIBCXX_PREFIX}
       DEPS ${TSAN_RUNTIME_LIBRARIES}
       CFLAGS ${TARGET_CFLAGS} -fsanitize=thread
+      CMAKE_ARGS -DLIBCXX_INCLUDE_BENCHMARKS=${LIBCXX_INCLUDE_BENCHMARKS}
       USE_TOOLCHAIN)
     list(APPEND libcxx_tsan_deps libcxx_tsan_${arch}-build)
   endforeach()
