@@ -60,7 +60,8 @@ append_list_if(COMPILER_RT_HAS_LIBDL dl UBSAN_DYNAMIC_LIBS)
 append_list_if(COMPILER_RT_HAS_LIBLOG log UBSAN_DYNAMIC_LIBS)
 append_list_if(COMPILER_RT_HAS_LIBRT rt UBSAN_DYNAMIC_LIBS)
 append_list_if(COMPILER_RT_HAS_LIBPTHREAD pthread UBSAN_DYNAMIC_LIBS)
-
+append_list_if(HAVE_LIBUNWIND clang_rt.builtins-${UBSAN_COMMON_SUPPORTED_ARCH} UBSAN_DYNAMIC_LIBS)
+append_list_if(HAVE_LIBUNWIND unwind_shared UBSAN_DYNAMIC_LIBS)
 add_compiler_rt_component(ubsan)
 
 if(APPLE)
