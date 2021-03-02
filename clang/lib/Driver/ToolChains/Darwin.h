@@ -546,6 +546,10 @@ public:
   /// @name Apple ToolChain Implementation
   /// {
 
+  const char *getDefaultLinker() const override {
+    return "ld64.lld";
+  }
+
   RuntimeLibType GetRuntimeLibType(const llvm::opt::ArgList &Args) const override;
 
   void AddLinkRuntimeLibArgs(const llvm::opt::ArgList &Args,
