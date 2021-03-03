@@ -518,10 +518,6 @@ protected:
 
   virtual bool DoPlanExplainsStop(Event *event_ptr) = 0;
 
-  LazyBool GetCachedPlanExplainsStop() const {
-    return m_cached_plan_explains_stop;
-  }
-
   // This pushes a plan onto the plan stack of the current plan's thread.
   // Also sets the plans to private and not controlling plans.  A plan pushed by
   // another thread plan is never either of the above.
