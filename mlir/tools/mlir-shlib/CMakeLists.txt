@@ -44,6 +44,11 @@ if(LLVM_BUILD_LLVM_DYLIB)
     ${mlir_llvm_link_components}
   )
   target_link_libraries(MLIR PRIVATE ${LLVM_PTHREAD_LIB})
+
+  if(MLIR_ENABLE_CUDA_RUNNER)
+    find_library(CUDA_DRIVER_LIBRARY cuda)
+    target_link_libraries(MLIR PRIVATE ${CUDA_DRIVER_LIBRARY})
+  endif()
 endif()
 
 #message("Libraries included in libMLIR.so: ${mlir_libs}")
