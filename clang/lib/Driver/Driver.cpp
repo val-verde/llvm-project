@@ -2732,8 +2732,8 @@ class OffloadingActionBuilder final {
       for (auto Arch : GpuArchs)
         GpuArchList.push_back(Arch.data());
 
-      // Default to sm_20 which is the lowest common denominator for
-      // supported GPUs.  sm_20 code should work correctly, if
+      // Default to sm_35 which is the lowest common denominator for
+      // supported GPUs.  sm_35 code should work correctly, if
       // suboptimally, on all newer GPUs.
       if (GpuArchList.empty())
         GpuArchList.push_back(DefaultCudaArch);
@@ -2749,7 +2749,7 @@ class OffloadingActionBuilder final {
     CudaActionBuilder(Compilation &C, DerivedArgList &Args,
                       const Driver::InputList &Inputs)
         : CudaActionBuilderBase(C, Args, Inputs, Action::OFK_Cuda) {
-      DefaultCudaArch = CudaArch::SM_20;
+      DefaultCudaArch = CudaArch::SM_35;
     }
 
     StringRef getCanonicalOffloadArch(StringRef ArchStr) override {
