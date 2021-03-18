@@ -53,6 +53,9 @@ __DEVICE__ float exp(float __x) { return ::expf(__x); }
 __DEVICE__ float fabs(float __x) { return ::fabsf(__x); }
 __DEVICE__ float floor(float __x) { return ::floorf(__x); }
 __DEVICE__ float fmod(float __x, float __y) { return ::fmodf(__x, __y); }
+#ifdef fpclassify
+#undef fpclassify
+#endif
 __DEVICE__ int fpclassify(float __x) {
   return __builtin_fpclassify(FP_NAN, FP_INFINITE, FP_NORMAL, FP_SUBNORMAL,
                               FP_ZERO, __x);
@@ -89,8 +92,14 @@ __DEVICE__ float frexp(float __arg, int *__exp) {
 
 __DEVICE__ int isinf(float __x) { return ::__isinff(__x); }
 __DEVICE__ int isinf(double __x) { return ::__isinf(__x); }
+#ifdef isfinite
+#undef isfininte
+#endif
 __DEVICE__ int isfinite(float __x) { return ::__finitef(__x); }
 __DEVICE__ int isfinite(double __x) { return ::__isfinited(__x); }
+#ifdef isnan
+#undef isnan
+#endif
 __DEVICE__ int isnan(float __x) { return ::__isnanf(__x); }
 __DEVICE__ int isnan(double __x) { return ::__isnan(__x); }
 
@@ -98,13 +107,22 @@ __DEVICE__ int isnan(double __x) { return ::__isnan(__x); }
 
 #endif
 
+#ifdef isinf
+#undef isinf
+#endif
 __DEVICE__ bool isinf(float __x) { return ::__isinff(__x); }
 __DEVICE__ bool isinf(double __x) { return ::__isinf(__x); }
+#ifdef isfinite
+#undef isfinite
+#endif
 __DEVICE__ bool isfinite(float __x) { return ::__finitef(__x); }
 // For inscrutable reasons, __finite(), the double-precision version of
 // __finitef, does not exist when compiling for MacOS.  __isfinited is available
 // everywhere and is just as good.
 __DEVICE__ bool isfinite(double __x) { return ::__isfinited(__x); }
+#ifdef isnan
+#undef isnan
+#endif
 __DEVICE__ bool isnan(float __x) { return ::__isnanf(__x); }
 __DEVICE__ bool isnan(double __x) { return ::__isnan(__x); }
 
@@ -114,38 +132,59 @@ __DEVICE__ bool isnan(double __x) { return ::__isnan(__x); }
 
 #endif
 
+#ifdef isgreater
+#undef isgreater
+#endif
 __DEVICE__ bool isgreater(float __x, float __y) {
   return __builtin_isgreater(__x, __y);
 }
 __DEVICE__ bool isgreater(double __x, double __y) {
   return __builtin_isgreater(__x, __y);
 }
+#ifdef isgreaterequal
+#undef isgreaterequal
+#endif
 __DEVICE__ bool isgreaterequal(float __x, float __y) {
   return __builtin_isgreaterequal(__x, __y);
 }
 __DEVICE__ bool isgreaterequal(double __x, double __y) {
   return __builtin_isgreaterequal(__x, __y);
 }
+#ifdef isless
+#undef isless
+#endif
 __DEVICE__ bool isless(float __x, float __y) {
   return __builtin_isless(__x, __y);
 }
 __DEVICE__ bool isless(double __x, double __y) {
   return __builtin_isless(__x, __y);
 }
+#ifdef islessequal
+#undef islessequal
+#endif
 __DEVICE__ bool islessequal(float __x, float __y) {
   return __builtin_islessequal(__x, __y);
 }
 __DEVICE__ bool islessequal(double __x, double __y) {
   return __builtin_islessequal(__x, __y);
 }
+#ifdef islessgreater
+#undef islessgreater
+#endif
 __DEVICE__ bool islessgreater(float __x, float __y) {
   return __builtin_islessgreater(__x, __y);
 }
 __DEVICE__ bool islessgreater(double __x, double __y) {
   return __builtin_islessgreater(__x, __y);
 }
+#ifdef isnormal
+#undef isnormal
+#endif
 __DEVICE__ bool isnormal(float __x) { return __builtin_isnormal(__x); }
 __DEVICE__ bool isnormal(double __x) { return __builtin_isnormal(__x); }
+#ifdef isunordered
+#undef isunordered
+#endif
 __DEVICE__ bool isunordered(float __x, float __y) {
   return __builtin_isunordered(__x, __y);
 }
@@ -167,6 +206,9 @@ __DEVICE__ float pow(float __base, int __iexp) {
 __DEVICE__ double pow(double __base, int __iexp) {
   return ::powi(__base, __iexp);
 }
+#ifdef signbit
+#undef signbit
+#endif
 __DEVICE__ bool signbit(float __x) { return ::__signbitf(__x); }
 __DEVICE__ bool signbit(double __x) { return ::__signbitd(__x); }
 __DEVICE__ float sin(float __x) { return ::sinf(__x); }
