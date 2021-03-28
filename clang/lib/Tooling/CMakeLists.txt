@@ -56,9 +56,9 @@ else()
   add_custom_command(
       COMMENT Generate ASTNodeAPI.json
       OUTPUT ${CMAKE_CURRENT_BINARY_DIR}/ASTNodeAPI.json
-      DEPENDS clang-ast-dump clang-resource-headers
+      DEPENDS ${CLANG_AST_DUMP_TARGET} clang-resource-headers
       COMMAND
-      $<TARGET_FILE:clang-ast-dump>
+      ${CLANG_AST_DUMP}
         # Skip this in debug mode because parsing AST.h is too slow
         --skip-processing=${skip_expensive_processing}
         -I ${CMAKE_BINARY_DIR}/lib/clang/${CLANG_VERSION}/include
