@@ -211,12 +211,14 @@ typedef __UINT16_TYPE__ uint16_t;
 # define __uint_least8_t uint16_t
 #endif /* __INT16_TYPE__ */
 
+#if !defined(__linux__) || defined(__ANDROID__) || defined(__GLIBC__)
 #ifdef __int_least16_t
 typedef __int_least16_t int_least16_t;
 typedef __uint_least16_t uint_least16_t;
 typedef __int_least16_t int_fast16_t;
 typedef __uint_least16_t uint_fast16_t;
 #endif /* __int_least16_t */
+#endif
 
 
 #ifdef __INT8_TYPE__
