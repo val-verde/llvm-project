@@ -70,9 +70,14 @@ static void DisableASLR(int error_fd) {
 #endif
 }
 
+#if defined(__ANDROID__)
+  static int UnixOpen(const char * const filename, int flags, mode_t mode) { return ::open(filename, flags, mode); }
+#else
+  #define UnixOpen ::open
+#endif
+
 static void DupDescriptor(int error_fd, const char *file, int fd, int flags) {
   int target_fd = llvm::sys::RetryAfterSignal(-1, ::open, file, flags, 0666);
-
   if (target_fd == -1)
     ExitWithError(error_fd, "DupDescriptor-open");
 

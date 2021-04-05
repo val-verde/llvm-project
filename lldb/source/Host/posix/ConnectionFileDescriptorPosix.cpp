@@ -120,6 +120,12 @@ bool ConnectionFileDescriptor::IsConnected() const {
   return m_io_sp && m_io_sp->IsValid();
 }
 
+#if defined(__ANDROID__)
+  static int UnixOpen(const char * const filename, int flags) { return ::open(filename, flags); }
+#else
+  #define UnixOpen ::open
+#endif
+
 ConnectionStatus ConnectionFileDescriptor::Connect(llvm::StringRef path,
                                                    Status *error_ptr) {
   return Connect(path, nullptr, error_ptr);
@@ -725,7 +731,7 @@ ConnectionStatus ConnectionFileDescriptor::ConnectFile(
 #if LLDB_ENABLE_POSIX
   std::string addr_str = s.str();
   // file:///PATH
-  int fd = llvm::sys::RetryAfterSignal(-1, ::open, addr_str.c_str(), O_RDWR);
+  int fd = llvm::sys::RetryAfterSignal(-1, UnixOpen, addr_str.c_str(), O_RDWR);
   if (fd == -1) {
     if (error_ptr)
       error_ptr->SetErrorToErrno();
@@ -775,7 +781,7 @@ ConnectionStatus ConnectionFileDescriptor::ConnectSerialPort(
     return eConnectionStatusError;
   }
 
-  int fd = llvm::sys::RetryAfterSignal(-1, ::open, path.str().c_str(), O_RDWR);
+  int fd = llvm::sys::RetryAfterSignal(-1, UnixOpen, path.str().c_str(), O_RDWR);
   if (fd == -1) {
     if (error_ptr)
       error_ptr->SetErrorToErrno();
