@@ -76,7 +76,13 @@ FILE *FileSystem::Fopen(const char *path, const char *mode) {
   return llvm::sys::RetryAfterSignal(nullptr, ::fopen, path, mode);
 }
 
+#if defined(__ANDROID__)
+  static int UnixOpen(const char * const filename, int flags, mode_t mode) { return ::open(filename, flags, mode); }
+#else
+    #define UnixOpen ::open
+#endif
+
 int FileSystem::Open(const char *path, int flags, int mode) {
   Collect(path);
-  return llvm::sys::RetryAfterSignal(-1, ::open, path, flags, mode);
+  return llvm::sys::RetryAfterSignal(-1, UnixOpen, path, flags, mode);
 }
