@@ -147,6 +147,12 @@ bool ConnectionFileDescriptor::IsConnected() const {
          (m_write_sp && m_write_sp->IsValid());
 }
 
+#if defined(__ANDROID__)
+  static int UnixOpen(const char * const filename, int flags) { return ::open(filename, flags); }
+#else
+    #define UnixOpen ::open
+#endif
+
 ConnectionStatus ConnectionFileDescriptor::Connect(llvm::StringRef path,
                                                    Status *error_ptr) {
   std::lock_guard<std::recursive_mutex> guard(m_mutex);
@@ -238,7 +244,7 @@ ConnectionStatus ConnectionFileDescriptor::Connect(llvm::StringRef path,
     } else if ((addr = GetURLAddress(path, FILE_SCHEME))) {
       std::string addr_str = addr->str();
       // file:///PATH
-      int fd = llvm::sys::RetryAfterSignal(-1, ::open, addr_str.c_str(), O_RDWR);
+      int fd = llvm::sys::RetryAfterSignal(-1, UnixOpen, addr_str.c_str(), O_RDWR);
       if (fd == -1) {
         if (error_ptr)
           error_ptr->SetErrorToErrno();
