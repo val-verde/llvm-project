@@ -88,11 +88,17 @@ llvm::Error PseudoTerminal::OpenFirstAvailablePrimary(int oflag) {
 #endif
 }
 
+#if defined(__ANDROID__)
+  static int UnixOpen(const char * const filename, int flags) { return ::open(filename, flags); }
+#else
+    #define UnixOpen ::open
+#endif
+
 llvm::Error PseudoTerminal::OpenSecondary(int oflag) {
   CloseSecondaryFileDescriptor();
 
   std::string name = GetSecondaryName();
-  m_secondary_fd = llvm::sys::RetryAfterSignal(-1, ::open, name.c_str(), oflag);
+  m_secondary_fd = llvm::sys::RetryAfterSignal(-1, UnixOpen, name.c_str(), oflag);
   if (m_secondary_fd >= 0)
     return llvm::Error::success();
 
