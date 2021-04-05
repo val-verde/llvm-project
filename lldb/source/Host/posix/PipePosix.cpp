@@ -141,6 +141,12 @@ Status PipePosix::CreateWithUniqueName(llvm::StringRef prefix,
   return error;
 }
 
+#if defined(__ANDROID__)
+  static int UnixOpen(const char * const filename, int flags) { return ::open(filename, flags); }
+#else
+    #define UnixOpen ::open
+#endif
+
 Status PipePosix::OpenAsReader(llvm::StringRef name,
                                bool child_process_inherit) {
   if (CanRead() || CanWrite())
@@ -151,7 +157,7 @@ Status PipePosix::OpenAsReader(llvm::StringRef name,
     flags |= O_CLOEXEC;
 
   Status error;
-  int fd = llvm::sys::RetryAfterSignal(-1, ::open, name.str().c_str(), flags);
+  int fd = llvm::sys::RetryAfterSignal(-1, UnixOpen, name.str().c_str(), flags);
   if (fd != -1)
     m_fds[READ] = fd;
   else
