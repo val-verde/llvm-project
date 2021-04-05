@@ -70,9 +70,14 @@ static void DisableASLRIfRequested(int error_fd, const ProcessLaunchInfo &info) 
 #endif
 }
 
+#if defined(__ANDROID__)
+  static int UnixOpen(const char * const filename, int flags, mode_t mode) { return ::open(filename, flags, mode); }
+#else
+  #define UnixOpen ::open
+#endif
 static void DupDescriptor(int error_fd, const FileSpec &file_spec, int fd,
                           int flags) {
-  int target_fd = llvm::sys::RetryAfterSignal(-1, ::open,
+  int target_fd = llvm::sys::RetryAfterSignal(-1, UnixOpen,
       file_spec.GetCString(), flags, 0666);
 
   if (target_fd == -1)
