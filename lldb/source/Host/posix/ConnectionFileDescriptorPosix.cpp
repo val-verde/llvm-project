@@ -719,13 +719,19 @@ ConnectionFileDescriptor::ConnectFD(llvm::StringRef s,
   llvm_unreachable("this function should be only called w/ LLDB_ENABLE_POSIX");
 }
 
+#if defined(__ANDROID__)
+  static int UnixOpen(const char * const filename, int flags) { return ::open(filename, flags); }
+#else
+  #define UnixOpen ::open
+#endif
+
 ConnectionStatus ConnectionFileDescriptor::ConnectFile(
     llvm::StringRef s, socket_id_callback_type socket_id_callback,
     Status *error_ptr) {
 #if LLDB_ENABLE_POSIX
   std::string addr_str = s.str();
   // file:///PATH
-  int fd = llvm::sys::RetryAfterSignal(-1, ::open, addr_str.c_str(), O_RDWR);
+  int fd = llvm::sys::RetryAfterSignal(-1, UnixOpen, addr_str.c_str(), O_RDWR);
   if (fd == -1) {
     if (error_ptr)
       error_ptr->SetErrorToErrno();
@@ -775,7 +781,7 @@ ConnectionStatus ConnectionFileDescriptor::ConnectSerialPort(
     return eConnectionStatusError;
   }
 
-  int fd = llvm::sys::RetryAfterSignal(-1, ::open, path.str().c_str(), O_RDWR);
+  int fd = llvm::sys::RetryAfterSignal(-1, UnixOpen, path.str().c_str(), O_RDWR);
   if (fd == -1) {
     if (error_ptr)
       error_ptr->SetErrorToErrno();
