@@ -1030,7 +1030,6 @@ if (LLVM_INCLUDE_UTILS)
   add_subdirectory(utils/llvm-lit)
 endif()
 
-if (NOT LLVM_INSTALL_TOOLCHAIN_ONLY)
   install(DIRECTORY include/llvm include/llvm-c
     DESTINATION include
     COMPONENT llvm-headers
@@ -1055,6 +1054,7 @@ if (NOT LLVM_INSTALL_TOOLCHAIN_ONLY)
     PATTERN "config.h" EXCLUDE
     )
 
+if (NOT LLVM_INSTALL_TOOLCHAIN_ONLY)
   if (LLVM_INSTALL_MODULEMAPS)
     install(DIRECTORY include/llvm include/llvm-c
             DESTINATION include
