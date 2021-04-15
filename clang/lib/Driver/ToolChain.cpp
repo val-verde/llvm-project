@@ -399,7 +399,14 @@ StringRef ToolChain::getOSLibName() const {
   case llvm::Triple::AIX:
     return "aix";
   default:
-    return getOS();
+    switch (Triple.getEnvironment()) {
+    case llvm::Triple::EnvironmentType::Android:
+      return "android";
+    case llvm::Triple::EnvironmentType::Musl:
+      return "musl";
+    default:
+      return getOS();
+    }
   }
 }
 
