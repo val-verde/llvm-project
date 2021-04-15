@@ -533,16 +533,31 @@ void tools::gnutools::Linker::ConstructJob(Compilation &C, const JobAction &JA,
           P = crtbegin;
       }
       if (P.empty()) {
-        const char *crtbegin;
-        if (IsStatic)
-          crtbegin = isAndroid ? "crtbegin_static.o" : "crtbeginT.o";
-        else if (Args.hasArg(options::OPT_shared))
-          crtbegin = isAndroid ? "crtbegin_so.o" : "crtbeginS.o";
-        else if (IsPIE || IsStaticPIE)
-          crtbegin = isAndroid ? "crtbegin_dynamic.o" : "crtbeginS.o";
-        else
-          crtbegin = isAndroid ? "crtbegin_dynamic.o" : "crtbegin.o";
-        P = ToolChain.GetFilePath(crtbegin);
+        std::string crtbegin = "crtbegin";
+
+        if (isAndroid) {
+          crtbegin += "_";
+
+          if (IsStatic)
+            crtbegin += "static";
+          else if (Args.hasArg(options::OPT_shared))
+            crtbegin += "so";
+          else
+            crtbegin += "dynamic";
+        } else {
+          crtbegin = "clang_rt." + crtbegin;
+
+          if (IsStatic)
+            crtbegin += "T";
+          else if (Args.hasArg(options::OPT_shared) || IsPIE || IsStaticPIE)
+            crtbegin += "S";
+
+          crtbegin += "-";
+          crtbegin += getToolChain().getArchName();
+        }
+
+        crtbegin += ".o";
+        P = ToolChain.GetFilePath(crtbegin.c_str());
       }
       CmdArgs.push_back(Args.MakeArgString(P));
     }
@@ -654,14 +669,27 @@ void tools::gnutools::Linker::ConstructJob(Compilation &C, const JobAction &JA,
             P = crtend;
         }
         if (P.empty()) {
-          const char *crtend;
-          if (Args.hasArg(options::OPT_shared))
-            crtend = isAndroid ? "crtend_so.o" : "crtendS.o";
-          else if (IsPIE || IsStaticPIE)
-            crtend = isAndroid ? "crtend_android.o" : "crtendS.o";
-          else
-            crtend = isAndroid ? "crtend_android.o" : "crtend.o";
-          P = ToolChain.GetFilePath(crtend);
+          std::string crtend = "crtend";
+
+          if (isAndroid) {
+            crtend += "_";
+
+            if (Args.hasArg(options::OPT_shared))
+              crtend += "so";
+            else
+              crtend += "android";
+          } else {
+            crtend = "clang_rt." + crtend;
+
+            if (Args.hasArg(options::OPT_shared) || IsPIE || IsStaticPIE)
+              crtend += "S";
+
+            crtend += "-";
+            crtend += getToolChain().getArchName();
+          }
+
+          crtend += ".o";
+          P = ToolChain.GetFilePath(crtend.c_str());
         }
         CmdArgs.push_back(Args.MakeArgString(P));
       }
