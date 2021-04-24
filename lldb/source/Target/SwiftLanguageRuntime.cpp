@@ -1046,7 +1046,7 @@ SwiftLanguageRuntime::GetLanguageSpecificData(StackFrame &frame) {
 
   auto dict_sp = std::make_shared<StructuredData::Dictionary>();
   auto symbol = sc.function->GetMangled().GetMangledName().GetStringRef();
-  auto is_async = SwiftLanguageRuntime::IsAnySwiftAsyncFunctionSymbol(symbol);
+  auto is_async = SwiftLanguageRuntime::IsSwiftAsyncFunctionSymbol(symbol);
   dict_sp->AddBooleanItem("IsSwiftAsyncFunction", is_async);
 
   auto *data = new StructuredDataImpl;
