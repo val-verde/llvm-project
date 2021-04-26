@@ -220,14 +220,6 @@ bool TailDuplicator::tailDuplicateAndUpdate(
         MachineOperand &UseMO = *UI;
         MachineInstr *UseMI = UseMO.getParent();
         ++UI;
-        if (UseMI->isDebugValue()) {
-          // SSAUpdate can replace the use with an undef. That creates
-          // a debug instruction that is a kill.
-          // FIXME: Should it SSAUpdate job to delete debug instructions
-          // instead of replacing the use with undef?
-          UseMI->eraseFromParent();
-          continue;
-        }
         if (UseMI->getParent() == DefBB && !UseMI->isPHI())
           continue;
         SSAUpdate.RewriteUse(UseMO);
