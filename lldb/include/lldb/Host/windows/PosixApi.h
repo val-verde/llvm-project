@@ -21,6 +21,9 @@
 // time_t, timespec, etc.
 #include <ctime>
 
+// pid_t
+#include <process.h>
+
 #ifndef PATH_MAX
 #define PATH_MAX 32768
 #endif
