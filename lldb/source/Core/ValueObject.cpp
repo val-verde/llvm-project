@@ -313,8 +313,12 @@ CompilerType ValueObject::MaybeCalculateCompleteType() {
 
   // try the modules
   if (TargetSP target_sp = GetTargetSP()) {
+    auto *persistent_vars = llvm::cast<ClangPersistentVariables>(
+      target_sp->GetPersistentExpressionStateForLanguage(
+                lldb::eLanguageTypeC));
+
     if (auto clang_modules_decl_vendor =
-            target_sp->GetClangModulesDeclVendor()) {
+            persistent_vars->GetClangModulesDeclVendor()) {
       ConstString key_cs(class_name);
       auto types = clang_modules_decl_vendor->FindTypes(
           key_cs, /*max_matches*/ UINT32_MAX);
