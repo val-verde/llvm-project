@@ -717,8 +717,6 @@ static void warnIfUnimplementedOption(const Option &opt) {
     warn("Option `" + opt.getPrefixedName() + "' is ignored.");
     break;
   default:
-    warn("Option `" + opt.getPrefixedName() +
-         "' is not yet implemented. Stay tuned...");
     break;
   }
 }
