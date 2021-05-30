@@ -401,6 +401,7 @@ function(add_compiler_rt_runtime name type)
         # Xcode 12 shipped with ld64-609.
         # FIXME: Remove whole conditional block once everything uses Xcode 12+.
         set(LD_V_OUTPUT)
+        find_program(CODESIGN codesign)
         execute_process(
           COMMAND sh -c "${CMAKE_LINKER} -v 2>&1 | head -1"
           RESULT_VARIABLE HAD_ERROR
@@ -416,10 +417,10 @@ function(add_compiler_rt_runtime name type)
             set(NEED_EXPLICIT_ADHOC_CODESIGN 0)
           endif()
         endif()
-        if (NEED_EXPLICIT_ADHOC_CODESIGN)
+	if (CODESIGN AND NEED_EXPLICIT_ADHOC_CODESIGN)
           add_custom_command(TARGET ${libname}
             POST_BUILD
-            COMMAND codesign --sign - $<TARGET_FILE:${libname}>
+            COMMAND ${CODESIGN} --sign - $<TARGET_FILE:${libname}>
             WORKING_DIRECTORY ${COMPILER_RT_OUTPUT_LIBRARY_DIR}
           )
         endif()
