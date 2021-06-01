@@ -167,11 +167,6 @@ else()
   set(LLVM_PLUGIN_EXT ${CMAKE_SHARED_LIBRARY_SUFFIX})
 endif()
 
-if(APPLE)
-  # Darwin-specific linker flags for loadable modules.
-  set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-flat_namespace -Wl,-undefined -Wl,suppress")
-endif()
-
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
   # RHEL7 has ar and ranlib being non-deterministic by default. The D flag forces determinism,
   # however only GNU version of ar and ranlib (2.27) have this option.

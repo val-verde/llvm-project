@@ -66,11 +66,6 @@ macro(add_polly_loadable_module name)
   if (GLOBAL_NOT_MODULE)
     unset (MODULE)
   endif()
-  if (APPLE)
-    # Darwin-specific linker flags for loadable modules.
-    set_target_properties(${name} PROPERTIES
-      LINK_FLAGS "-Wl,-flat_namespace -Wl,-undefined -Wl,suppress")
-  endif()
 endmacro(add_polly_loadable_module)
 
 # Recursive helper for setup_source_group. Traverse the file system and add
