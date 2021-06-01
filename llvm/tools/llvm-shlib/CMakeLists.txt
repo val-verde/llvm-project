@@ -56,7 +56,10 @@ if(LLVM_BUILD_LLVM_DYLIB)
     # inside and outside libLLVM.so.
     target_link_options(LLVM PRIVATE LINKER:-Bsymbolic-functions)
   elseif("${CMAKE_SYSTEM_NAME}" STREQUAL "Darwin")
-    set(LIB_NAMES -Wl,-all_load ${LIB_NAMES})
+    foreach (LIB_NAME IN LISTS LIB_NAMES)
+      set(LOAD_LIB_NAMES "${LOAD_LIB_NAMES}-Wl,-force_load;${LIB_NAME};")
+    endforeach()
+    set(LIB_NAMES ${LOAD_LIB_NAMES})
   endif()
 
   target_link_libraries(LLVM PRIVATE ${LIB_NAMES})
