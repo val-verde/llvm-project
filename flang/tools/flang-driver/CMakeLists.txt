@@ -19,6 +19,7 @@ target_link_libraries(flang-new
   PRIVATE
   flangFrontend
   flangFrontendTool
+  MLIRIR
 )
 
 clang_target_link_libraries(flang-new
