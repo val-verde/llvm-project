@@ -164,8 +164,6 @@ if(APPLE)
   if(LLVM_ENABLE_LLD AND LLVM_ENABLE_LTO)
     message(FATAL_ERROR "lld does not support LTO on Darwin")
   endif()
-  # Darwin-specific linker flags for loadable modules.
-  set(CMAKE_MODULE_LINKER_FLAGS "${CMAKE_MODULE_LINKER_FLAGS} -Wl,-flat_namespace -Wl,-undefined -Wl,suppress")
 endif()
 
 if(${CMAKE_SYSTEM_NAME} MATCHES "Linux")
