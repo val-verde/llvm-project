@@ -21,8 +21,9 @@ if (MSVC_IDE OR XCODE)
   file(GLOB_RECURSE POLLY_HEADER_FILES "${POLLY_SOURCE_DIR}/include/polly/*.h")
 endif ()
 
-set(POLLY_COMPONENTS
+set(LLVM_LINK_COMPONENTS
     Support
+    Codegen
     Core
     ScalarOpts
     InstCombine
@@ -46,7 +47,7 @@ set(POLLY_COMPONENTS
 # Polly-ACC requires the NVPTX backend to work. Ask LLVM about its libraries.
 if (GPU_CODEGEN)
   # This call emits an error if they NVPTX backend is not enable.
-  list(APPEND POLLY_COMPONENTS NVPTX)
+  list(APPEND LLVM_LINK_COMPONENTS NVPTX)
 endif ()
 
 # Use an object-library to add the same files to multiple libs without requiring
@@ -100,9 +101,6 @@ add_llvm_pass_plugin(Polly
   Transform/ScopInliner.cpp
   Transform/ManualOptimizer.cpp
   ${POLLY_HEADER_FILES}
-
-  LINK_COMPONENTS
-  ${POLLY_COMPONENTS}
   )
 set_target_properties(obj.Polly PROPERTIES FOLDER "Polly")
 set_target_properties(Polly PROPERTIES FOLDER "Polly")
