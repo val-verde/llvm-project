@@ -1,6 +1,6 @@
 if(NOT CMAKE_LLAsm_COMPILE_OBJECT)
   set(CMAKE_LLAsm_COMPILE_OBJECT
-	  "${CMAKE_LLAsm_PREPROCESSOR} -E -P  <DEFINES> <INCLUDES> <FLAGS> -x cl <SOURCE> -o <OBJECT>.temp"
+	  "${CMAKE_LLAsm_PREPROCESSOR} -cl-no-stdinc -E -P  <DEFINES> <INCLUDES> <FLAGS> -x cl <SOURCE> -o <OBJECT>.temp"
 	  "<CMAKE_LLAsm_COMPILER> -o <OBJECT> <OBJECT>.temp")
 endif()
 
