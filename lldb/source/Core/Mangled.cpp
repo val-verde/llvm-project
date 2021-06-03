@@ -40,6 +40,8 @@
 #include <cstring>
 using namespace lldb_private;
 
+static std::pair<ConstString, ConstString> g_most_recent_mangled_to_name_sans_args;
+
 static inline bool cstring_is_mangled(llvm::StringRef s) {
   return Mangled::GetManglingScheme(s) != Mangled::eManglingSchemeNone
 #ifdef LLDB_ENABLE_SWIFT
