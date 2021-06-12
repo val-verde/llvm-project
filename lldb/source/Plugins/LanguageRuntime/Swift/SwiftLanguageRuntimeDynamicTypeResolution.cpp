@@ -1973,10 +1973,12 @@ bool SwiftLanguageRuntimeImpl::GetDynamicTypeAndAddress_Protocol(
     PushLocalBuffer(existential_address, in_value.GetByteSize().getValueOr(0));
 
   swift::remote::RemoteAddress remote_existential(existential_address);
+  const swift::reflection::TypeRef *typeref;
+  swift::remote::RemoteAddress out_address(nullptr);
 
   auto *reflection_ctx = GetReflectionContext();
-  auto pair = reflection_ctx->projectExistentialAndUnwrapClass(
-      remote_existential, *protocol_typeref);
+  auto pair = reflection_ctx->projectExistential(
+      remote_existential, protocol_typeref, &typeref, &out_address, NULL);
   if (use_local_buffer)
     PopLocalBuffer();
 
@@ -1986,9 +1988,6 @@ bool SwiftLanguageRuntimeImpl::GetDynamicTypeAndAddress_Protocol(
     return false;
   }
 
-  const swift::reflection::TypeRef *typeref;
-  swift::remote::RemoteAddress out_address(nullptr);
-  std::tie(typeref, out_address) = *pair;
   auto &ts = tss->GetTypeSystemSwiftTypeRef();
   swift::Demangle::Demangler dem;
   swift::Demangle::NodePointer node = typeref->getDemangling(dem);
