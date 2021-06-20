@@ -188,7 +188,7 @@ set_target_properties(liblldb
 )
 
 target_compile_definitions(liblldb PRIVATE LLDB_IN_LIBLLDB)
-if (NOT CMAKE_SYSTEM_NAME MATCHES "Windows")
+if (NOT CMAKE_SYSTEM_NAME MATCHES "Windows" AND NOT CMAKE_SYSTEM_NAME MATCHES "Darwin")
   if (NOT LLDB_EXPORT_ALL_SYMBOLS)
     # If we're not exporting all symbols, we'll want to explicitly set
     # the exported symbols here.  This prevents 'log enable --stack ...'
