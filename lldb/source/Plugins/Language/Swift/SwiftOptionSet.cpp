@@ -205,7 +205,7 @@ bool lldb_private::formatters::swift::SwiftOptionSetSummaryProvider::
   if (matched_value != value) {
     // Print the unaccounted-for bits separately.
     llvm::APInt residual = value & ~matched_value;
-    ss << ", 0x" << residual.toString(16, false);
+    ss << ", 0x" << llvm::toString(residual, 16, false);
   }
   ss << ']';
 
