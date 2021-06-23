@@ -6856,6 +6856,7 @@ llvm::StringRef ObjectFileMachO::GetReflectionSectionIdentifier(
 #else
   llvm_unreachable("Swift support disabled");
 #endif //LLDB_ENABLE_SWIFT
+}
 
 ObjectFileMachO::MachOCorefileAllImageInfos
 ObjectFileMachO::GetCorefileAllImageInfos() {
