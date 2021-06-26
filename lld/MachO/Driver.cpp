@@ -1162,7 +1162,7 @@ bool macho::link(ArrayRef<const char *> argsArr, bool canExitEarly,
   config->finalOutput =
       args.getLastArgValue(OPT_final_output, config->outputFile);
   config->astPaths = args.getAllArgValues(OPT_add_ast_path);
-  config->headerPad = args::getHex(args, OPT_headerpad, /*Default=*/32);
+  config->headerPad = args::getHex(args, OPT_headerpad, /*Default=*/64);
   config->headerPadMaxInstallNames =
       args.hasArg(OPT_headerpad_max_install_names);
   config->printDylibSearch =
