@@ -98,7 +98,7 @@ if(LLVM_BUILD_LLVM_C_DYLIB AND NOT MSVC)
   list(APPEND LLVM_DYLIB_REQUIRED_EXPORTS ${LIB_EXPORTS_PATH})
 
   add_custom_command(OUTPUT ${LLVM_EXPORTED_SYMBOL_FILE}
-    COMMAND nm ${LIB_PATH} | awk "/T _LLVM/ || /T LLVM/ { print $3 }" | sort -u | sed -e "s/^_//g" > ${LLVM_EXPORTED_SYMBOL_FILE}
+    COMMAND ${CMAKE_NM} ${LIB_PATH} | awk "/T _LLVM/ || /T LLVM/ { print $3 }" | sort -u | sed -e "s/^_//g" > ${LLVM_EXPORTED_SYMBOL_FILE}
     WORKING_DIRECTORY ${LIB_DIR}
     DEPENDS LLVM
     COMMENT "Generating Export list for LLVM..."
