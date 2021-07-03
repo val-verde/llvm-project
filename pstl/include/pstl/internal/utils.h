@@ -21,7 +21,7 @@ namespace __internal
 {
 
 template <typename _Fp>
-typename std::result_of<_Fp()>::type
+typename std::invoke_result<_Fp()>::type
 __except_handler(_Fp __f)
 {
     try
