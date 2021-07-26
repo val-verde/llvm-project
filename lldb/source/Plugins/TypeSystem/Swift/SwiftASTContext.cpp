@@ -3386,7 +3386,7 @@ swift::ASTContext *SwiftASTContext::GetASTContext() {
   llvm::Optional<llvm::VersionTuple> sdk_version =
       m_ast_context_ap->LangOpts.SDKVersion;
   if (!sdk_version) {
-    auto SDKInfoOrErr = clang::driver::parseDarwinSDKInfo(
+    auto SDKInfoOrErr = clang::parseDarwinSDKInfo(
         *llvm::vfs::getRealFileSystem(),
         m_ast_context_ap->SearchPathOpts.SDKPath);
     if (SDKInfoOrErr) {
