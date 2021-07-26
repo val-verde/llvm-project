@@ -1538,7 +1538,7 @@ void SwiftASTContext::RemapClangImporterOptions(
   if (path_map.RemapPath(ConstString(options.BridgingHeader), remapped)) {
     LOG_PRINTF(LIBLLDB_LOG_TYPES, "remapped %s -> %s",
                options.BridgingHeader.c_str(), remapped.GetStringRef());
-    options.BridgingHeader = remapped.GetStringRef();
+    options.BridgingHeader = remapped.GetStringRef().str();
   }
 
   // Previous argument was the dash-option of an option pair.
