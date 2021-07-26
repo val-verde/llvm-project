@@ -114,7 +114,6 @@ private:
   size_t m_completed_plan_checkpoint = 0; // Monotonically increasing token for
                                           // completed plan checkpoints.
   std::unordered_map<size_t, PlanStack> m_completed_plan_store;
-  mutable std::recursive_mutex m_stack_mutex;
 };
 
 class ThreadPlanStackMap {
@@ -184,7 +183,7 @@ public:
   }
 
   void Clear() {
-    for (auto &plan : m_plans_list)
+    for (auto plan : m_plans_list)
       plan.second.ThreadDestroyed(nullptr);
     m_plans_list.clear();
   }
