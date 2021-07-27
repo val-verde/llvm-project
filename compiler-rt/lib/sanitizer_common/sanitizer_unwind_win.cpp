@@ -57,6 +57,14 @@ void BufferedStackTrace::UnwindSlow(uptr pc, void *context, u32 max_depth) {
   InitializeDbgHelpIfNeeded();
 
   size = 0;
+#if defined(__aarch64__)
+#if defined(_WIN64)
+  int machine_type = IMAGE_FILE_MACHINE_ARM64;
+  stack_frame.AddrPC.Offset = ctx.Pc;
+  stack_frame.AddrFrame.Offset = ctx.Fp;
+  stack_frame.AddrStack.Offset = ctx.Sp;
+#endif
+#elif defined(__i386__) || defined(__x86_64__)
 #if defined(_WIN64)
   int machine_type = IMAGE_FILE_MACHINE_AMD64;
   stack_frame.AddrPC.Offset = ctx.Rip;
@@ -67,6 +75,7 @@ void BufferedStackTrace::UnwindSlow(uptr pc, void *context, u32 max_depth) {
   stack_frame.AddrPC.Offset = ctx.Eip;
   stack_frame.AddrFrame.Offset = ctx.Ebp;
   stack_frame.AddrStack.Offset = ctx.Esp;
+#endif
 #endif
   stack_frame.AddrPC.Mode = AddrModeFlat;
   stack_frame.AddrFrame.Mode = AddrModeFlat;
