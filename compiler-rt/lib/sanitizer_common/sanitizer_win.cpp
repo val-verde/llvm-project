@@ -944,12 +944,19 @@ void SignalContext::InitPcSpBp() {
   CONTEXT *context_record = (CONTEXT *)context;
 
   pc = (uptr)exception_record->ExceptionAddress;
+#if defined(__aarch64__)
+#if defined(_WIN64)
+  bp = (uptr)context_record->Fp;
+  sp = (uptr)context_record->Sp;
+#endif
+#elif defined(__i386__) || defined(__x86_64__)
 #ifdef _WIN64
   bp = (uptr)context_record->Rbp;
   sp = (uptr)context_record->Rsp;
 #else
   bp = (uptr)context_record->Ebp;
   sp = (uptr)context_record->Esp;
+#endif
 #endif
 }
 
