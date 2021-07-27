@@ -44,6 +44,7 @@ template <typename Unused = void> double getCpuTime(fallback_implementation) {
   return -1.0;
 }
 
+#ifndef _WIN32
 // POSIX implementation using clock_gettime. This is only enabled if
 // clock_gettime is available.
 template <typename T = int, typename U = struct timespec>
@@ -68,6 +69,7 @@ double getCpuTime(preferred_implementation,
   // Return some negative value to represent failure.
   return -1.0;
 }
+#endif
 } // anonymous namespace
 
 namespace Fortran::runtime {
