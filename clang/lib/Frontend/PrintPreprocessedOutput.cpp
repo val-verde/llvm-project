@@ -624,6 +624,7 @@ void PrintPPOutputPPCallbacks::PragmaExecCharsetPop(SourceLocation Loc) {
 
 void PrintPPOutputPPCallbacks::
 PragmaAssumeNonNullBegin(SourceLocation Loc) {
+  startNewLineIfNeeded();
   MoveToLine(Loc, /*RequireStartOfLine=*/true);
   OS << "#pragma clang assume_nonnull begin";
   setEmittedDirectiveOnThisLine();
@@ -631,6 +632,7 @@ PragmaAssumeNonNullBegin(SourceLocation Loc) {
 
 void PrintPPOutputPPCallbacks::
 PragmaAssumeNonNullEnd(SourceLocation Loc) {
+  startNewLineIfNeeded();
   MoveToLine(Loc, /*RequireStartOfLine=*/true);
   OS << "#pragma clang assume_nonnull end";
   setEmittedDirectiveOnThisLine();
