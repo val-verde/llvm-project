@@ -127,6 +127,7 @@ set(CMAKE_CXX_IMPLICIT_LINK_LIBRARIES "")
 # Build the shared library.
 if (LIBUNWIND_ENABLE_SHARED)
   add_library(unwind_shared SHARED ${LIBUNWIND_SOURCES} ${LIBUNWIND_HEADERS})
+  set_target_properties(unwind_shared PROPERTIES PUBLIC_HEADER "../include/__libunwind_config.h;../include/libunwind.h;../include/unwind.h;../include/unwind_itanium.h;../include/unwind_arm_ehabi.h")
   if(CMAKE_C_COMPILER_ID STREQUAL MSVC)
     target_compile_options(unwind_shared PRIVATE /GR-)
   else()
@@ -155,6 +156,7 @@ endif()
 # Build the static library.
 if (LIBUNWIND_ENABLE_STATIC)
   add_library(unwind_static STATIC ${LIBUNWIND_SOURCES} ${LIBUNWIND_HEADERS})
+  set_target_properties(unwind_static PROPERTIES PUBLIC_HEADER "../include/__libunwind_config.h;../include/libunwind.h;../include/unwind.h;../include/unwind_itanium.h;../include/unwind_arm_ehabi.h")
   if(CMAKE_C_COMPILER_ID STREQUAL MSVC)
     target_compile_options(unwind_static PRIVATE /GR-)
   else()
@@ -191,6 +193,7 @@ add_custom_target(unwind DEPENDS ${LIBUNWIND_BUILD_TARGETS})
 
 if (LIBUNWIND_INSTALL_LIBRARY)
   install(TARGETS ${LIBUNWIND_INSTALL_TARGETS}
+    PUBLIC_HEADER DESTINATION include
     LIBRARY DESTINATION ${LIBUNWIND_INSTALL_LIBRARY_DIR} COMPONENT unwind
     ARCHIVE DESTINATION ${LIBUNWIND_INSTALL_LIBRARY_DIR} COMPONENT unwind
     RUNTIME DESTINATION ${LIBUNWIND_INSTALL_RUNTIME_DIR} COMPONENT unwind)
