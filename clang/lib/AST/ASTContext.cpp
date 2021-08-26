@@ -11635,6 +11635,9 @@ CallingConv ASTContext::getDefaultCallingConvention(bool IsVariadic,
       break;
     }
   }
+  if (LangOpts.getDefaultCallingConv() == LangOptions::DCC_Win64) {
+    return CC_Win64;
+  }
   return Target->getDefaultCallingConv();
 }
 

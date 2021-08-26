@@ -311,37 +311,47 @@ public:
   using CGBuilderBaseTy::CreateMemCpy;
   llvm::CallInst *CreateMemCpy(Address Dest, Address Src, llvm::Value *Size,
                                bool IsVolatile = false) {
-    return CreateMemCpy(Dest.getPointer(), Dest.getAlignment().getAsAlign(),
-                        Src.getPointer(), Src.getAlignment().getAsAlign(), Size,
-                        IsVolatile);
+    llvm::CallInst *CI = CreateMemCpy(Dest.getPointer(), Dest.getAlignment().getAsAlign(),
+                                      Src.getPointer(), Src.getAlignment().getAsAlign(), Size,
+                                      IsVolatile);
+    CI->setCallingConv(TypeCache.getRuntimeCC());
+    return CI;
   }
   llvm::CallInst *CreateMemCpy(Address Dest, Address Src, uint64_t Size,
                                bool IsVolatile = false) {
-    return CreateMemCpy(Dest.getPointer(), Dest.getAlignment().getAsAlign(),
-                        Src.getPointer(), Src.getAlignment().getAsAlign(), Size,
-                        IsVolatile);
+    llvm::CallInst *CI = CreateMemCpy(Dest.getPointer(), Dest.getAlignment().getAsAlign(),
+                                      Src.getPointer(), Src.getAlignment().getAsAlign(), Size,
+                                      IsVolatile);
+    CI->setCallingConv(TypeCache.getRuntimeCC());
+    return CI;
   }
 
   using CGBuilderBaseTy::CreateMemCpyInline;
   llvm::CallInst *CreateMemCpyInline(Address Dest, Address Src, uint64_t Size) {
-    return CreateMemCpyInline(
+    llvm::CallInst *CI = CreateMemCpyInline(
         Dest.getPointer(), Dest.getAlignment().getAsAlign(), Src.getPointer(),
         Src.getAlignment().getAsAlign(), getInt64(Size));
+    CI->setCallingConv(TypeCache.getRuntimeCC());
+    return CI;
   }
 
   using CGBuilderBaseTy::CreateMemMove;
   llvm::CallInst *CreateMemMove(Address Dest, Address Src, llvm::Value *Size,
                                 bool IsVolatile = false) {
-    return CreateMemMove(Dest.getPointer(), Dest.getAlignment().getAsAlign(),
-                         Src.getPointer(), Src.getAlignment().getAsAlign(),
-                         Size, IsVolatile);
+    llvm::CallInst *CI = CreateMemMove(Dest.getPointer(), Dest.getAlignment().getAsAlign(),
+                                       Src.getPointer(), Src.getAlignment().getAsAlign(),
+                                       Size, IsVolatile);
+    CI->setCallingConv(TypeCache.getRuntimeCC());
+    return CI;
   }
 
   using CGBuilderBaseTy::CreateMemSet;
   llvm::CallInst *CreateMemSet(Address Dest, llvm::Value *Value,
                                llvm::Value *Size, bool IsVolatile = false) {
-    return CreateMemSet(Dest.getPointer(), Value, Size,
-                        Dest.getAlignment().getAsAlign(), IsVolatile);
+    llvm::CallInst *CI = CreateMemSet(Dest.getPointer(), Value, Size,
+                                      Dest.getAlignment().getAsAlign(), IsVolatile);
+    CI->setCallingConv(TypeCache.getRuntimeCC());
+    return CI;
   }
 
   using CGBuilderBaseTy::CreatePreserveStructAccessIndex;

@@ -135,7 +135,7 @@ CodeGenModule::CodeGenModule(ASTContext &C, const HeaderSearchOptions &HSO,
   GlobalsInt8PtrTy = Int8Ty->getPointerTo(DL.getDefaultGlobalsAddressSpace());
   ASTAllocaAddressSpace = getTargetCodeGenInfo().getASTAllocaAddressSpace();
 
-  RuntimeCC = getTargetCodeGenInfo().getABIInfo().getRuntimeCC();
+  RuntimeCC = getTypes().ClangCallConvToLLVMCallConv(Context.getDefaultCallingConvention(false, false, false));
 
   if (LangOpts.ObjC)
     createObjCRuntime();
