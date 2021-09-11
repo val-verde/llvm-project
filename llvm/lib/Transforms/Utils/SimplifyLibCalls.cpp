@@ -52,8 +52,7 @@ static cl::opt<bool>
 //===----------------------------------------------------------------------===//
 
 static bool ignoreCallingConv(LibFunc Func) {
-  return Func == LibFunc_abs || Func == LibFunc_labs ||
-         Func == LibFunc_llabs || Func == LibFunc_strlen;
+  return false;
 }
 
 /// Return true if it is only used in equality comparisons with With.
