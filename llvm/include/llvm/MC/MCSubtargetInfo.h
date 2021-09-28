@@ -281,6 +281,15 @@ public:
                                         unsigned NumStridedMemAccesses,
                                         unsigned NumPrefetches,
                                         bool HasCall) const;
+
+  /// Accessors for rust support.
+  const ArrayRef<SubtargetSubTypeKV> getCPUTable() const {
+    return ProcDesc;
+  }
+
+  const ArrayRef<SubtargetFeatureKV> getFeatureTable() const {
+    return ProcFeatures;
+  }
 };
 
 } // end namespace llvm
