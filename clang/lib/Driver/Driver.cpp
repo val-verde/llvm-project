@@ -5362,7 +5362,7 @@ const ToolChain &Driver::getToolChain(const ArgList &Args,
         else if (Target.isOSBinFormatMachO())
           TC = std::make_unique<toolchains::MachO>(*this, Target, Args);
         else
-          TC = std::make_unique<toolchains::Generic_GCC>(*this, Target, Args);
+          TC = std::make_unique<toolchains::MinGW>(*this, Target, Args);
         break;
       case llvm::Triple::GNU:
         TC = std::make_unique<toolchains::MinGW>(*this, Target, Args);
