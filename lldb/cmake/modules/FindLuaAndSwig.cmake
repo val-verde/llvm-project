@@ -12,7 +12,7 @@ else()
     if (LLDB_USE_STATIC_BINDINGS)
       set(SWIG_EXECUTABLE "/not/found")
     endif()
-    find_package(Lua 5.3 EXACT)
+    find_package(Lua)
     if(LUA_FOUND AND SWIG_FOUND)
       mark_as_advanced(
         LUA_LIBRARIES
