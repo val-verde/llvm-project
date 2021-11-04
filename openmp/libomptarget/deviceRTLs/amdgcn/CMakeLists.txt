@@ -137,7 +137,8 @@ macro(add_cuda_bc_library)
     -I${devicertl_base_directory}/common/include
     -I${devicertl_base_directory}
     -I${devicertl_base_directory}/../include
-    ${LIBOMPTARGET_LLVM_INCLUDE_DIRS_AMDGCN})
+    ${LIBOMPTARGET_LLVM_INCLUDE_DIRS_AMDGCN}
+    --sysroot ${CMAKE_SYSROOT})
 
   set(bc1_files)
 
