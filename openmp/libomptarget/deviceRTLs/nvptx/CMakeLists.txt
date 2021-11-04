@@ -74,14 +74,14 @@ endif()
 # Windows!
 # TODO: This part can also be removed if we can change the clang driver to make
 # it support device only compilation.
-if(CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "x86_64")
+if(CMAKE_SYSTEM_PROCESSOR MATCHES "x86_64")
   set(aux_triple x86_64-unknown-linux-gnu)
-elseif(CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "ppc64le")
+elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "ppc64le")
   set(aux_triple powerpc64le-unknown-linux-gnu)
-elseif(CMAKE_HOST_SYSTEM_PROCESSOR MATCHES "aarch64")
+elseif(CMAKE_SYSTEM_PROCESSOR MATCHES "aarch64")
   set(aux_triple aarch64-unknown-linux-gnu)
 else()
-  libomptarget_say("Not building CUDA offloading device RTL: unknown host arch: ${CMAKE_HOST_SYSTEM_PROCESSOR}")
+  libomptarget_say("Not building CUDA offloading device RTL: unknown host arch: ${CMAKE_SYSTEM_PROCESSOR}")
   return()
 endif()
 
