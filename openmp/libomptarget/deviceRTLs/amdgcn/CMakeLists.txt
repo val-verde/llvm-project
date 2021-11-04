@@ -122,7 +122,8 @@ macro(add_cuda_bc_library)
     ${CUDA_DEBUG}
     -I${CMAKE_CURRENT_SOURCE_DIR}/src
     -I${devicertl_base_directory}/common/include
-    -I${devicertl_base_directory})
+    -I${devicertl_base_directory}
+    --sysroot ${CMAKE_SYSROOT})
 
   set(bc1_files)
 
