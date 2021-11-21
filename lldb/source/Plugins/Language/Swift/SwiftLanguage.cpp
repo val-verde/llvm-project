@@ -63,7 +63,7 @@ void SwiftLanguage::Initialize() {
   static ConstString g_SwiftSharedStringClass("_TtCs21__SharedStringStorage");
   static ConstString g_SwiftStringStorageClass("_TtCs15__StringStorage");
   static ConstString g_NSArrayClass1("_TtCs22__SwiftDeferredNSArray");
-  PluginManager::RegisterPlugin(GetPluginNameStatic(), "Swift Language",
+  PluginManager::RegisterPlugin(GetPluginNameStatic().GetStringRef(), "Swift Language",
                                 CreateInstance);
 
   lldb_private::formatters::NSString_Additionals::GetAdditionalSummaries()

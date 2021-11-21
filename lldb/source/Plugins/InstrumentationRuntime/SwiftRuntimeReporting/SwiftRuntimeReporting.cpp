@@ -44,7 +44,7 @@ LLDB_PLUGIN_DEFINE_ADV(SwiftRuntimeReporting, InstrumentationRuntimeSwiftRuntime
 
 void SwiftRuntimeReporting::Initialize() {
   PluginManager::RegisterPlugin(
-      GetPluginNameStatic(),
+      GetPluginNameStatic().GetStringRef(),
       "SwiftRuntimeReporting instrumentation runtime plugin.", CreateInstance,
       GetTypeStatic);
 }

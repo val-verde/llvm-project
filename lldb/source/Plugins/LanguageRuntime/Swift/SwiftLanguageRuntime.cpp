@@ -2126,7 +2126,7 @@ public:
 
 void SwiftLanguageRuntime::Initialize() {
   PluginManager::RegisterPlugin(
-      GetPluginNameStatic(), "Language runtime for the Swift language",
+      GetPluginNameStatic().GetStringRef(), "Language runtime for the Swift language",
       CreateInstance,
       [](CommandInterpreter &interpreter) -> lldb::CommandObjectSP {
         return CommandObjectSP(new CommandObjectMultiwordSwift(interpreter));

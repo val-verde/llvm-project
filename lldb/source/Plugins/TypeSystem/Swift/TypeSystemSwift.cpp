@@ -56,7 +56,7 @@ LanguageSet TypeSystemSwift::GetSupportedLanguagesForTypes() {
 void TypeSystemSwift::Initialize() {
   SwiftLanguageRuntime::Initialize();
   LanguageSet swift = GetSupportedLanguagesForTypes();
-  PluginManager::RegisterPlugin(GetPluginNameStatic(),
+  PluginManager::RegisterPlugin(GetPluginNameStatic().GetStringRef(),
                                 "Swift type system and AST context plug-in",
                                 CreateTypeSystemInstance, swift, swift);
 }
