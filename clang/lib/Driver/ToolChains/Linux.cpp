@@ -43,6 +43,7 @@ std::string Linux::getMultiarchTriple(const Driver &D,
   llvm::Triple::EnvironmentType TargetEnvironment =
       TargetTriple.getEnvironment();
   bool IsAndroid = TargetTriple.isAndroid();
+  bool IsMusl = TargetTriple.isMusl();
   bool IsMipsR6 = TargetTriple.getSubArch() == llvm::Triple::MipsSubArch_r6;
   bool IsMipsN32Abi = TargetTriple.getEnvironment() == llvm::Triple::GNUABIN32;
 
@@ -75,12 +76,16 @@ std::string Linux::getMultiarchTriple(const Driver &D,
   case llvm::Triple::x86_64:
     if (IsAndroid)
       return "x86_64-linux-android";
+    if (IsMusl)
+      return "x86_64-linux-musl";
     if (TargetEnvironment == llvm::Triple::GNUX32)
       return "x86_64-linux-gnux32";
     return "x86_64-linux-gnu";
   case llvm::Triple::aarch64:
     if (IsAndroid)
       return "aarch64-linux-android";
+    if (IsMusl)
+      return "aarch64-linux-musl";
     return "aarch64-linux-gnu";
   case llvm::Triple::aarch64_be:
     return "aarch64_be-linux-gnu";
