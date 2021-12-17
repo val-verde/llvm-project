@@ -26,8 +26,8 @@
 #undef _WIN32_WINNT
 #undef _WIN32_IE
 
-// Require at least Windows 7 API.
-#define _WIN32_WINNT 0x0601
+// Require at least Windows 10H19 API.
+#define _WIN32_WINNT 0x0A000007
 #define _WIN32_IE    0x0800 // MinGW at it again. FIXME: verify if still needed.
 #endif
 
