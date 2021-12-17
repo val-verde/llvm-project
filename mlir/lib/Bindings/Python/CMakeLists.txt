@@ -74,6 +74,7 @@ add_mlir_python_extension(MLIRCoreBindingsPythonExtension _mlir
     ExecutionEngine.cpp
   LINK_LIBS PRIVATE
     LLVMSupport
+    MLIRCAPIIR
     MLIRPythonCAPI
 )
 add_dependencies(MLIRBindingsPythonExtension MLIRCoreBindingsPythonExtension)
