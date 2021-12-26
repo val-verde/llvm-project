@@ -4824,7 +4824,6 @@ void Clang::ConstructJob(Compilation &C, const JobAction &Job,
         options::OPT_mno_global_merge,
         options::OPT_mred_zone,
         options::OPT_mno_red_zone,
-        options::OPT_Wa_COMMA,
         options::OPT_Xassembler,
     };
     for (const auto &A : Args)
