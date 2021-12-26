@@ -4826,7 +4826,6 @@ void Clang::ConstructJob(Compilation &C, const JobAction &Job,
         options::OPT_mno_red_zone,
         options::OPT_Wa_COMMA,
         options::OPT_Xassembler,
-        options::OPT_mllvm,
     };
     for (const auto &A : Args)
       if (llvm::is_contained(kBitcodeOptionIgnorelist, A->getOption().getID()))
