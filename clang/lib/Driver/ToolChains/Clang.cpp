@@ -4567,7 +4567,6 @@ void Clang::ConstructJob(Compilation &C, const JobAction &JA,
         options::OPT_mno_red_zone,
         options::OPT_Wa_COMMA,
         options::OPT_Xassembler,
-        options::OPT_mllvm,
     };
     for (const auto &A : Args)
       if (llvm::find(kBitcodeOptionBlacklist, A->getOption().getID()) !=
