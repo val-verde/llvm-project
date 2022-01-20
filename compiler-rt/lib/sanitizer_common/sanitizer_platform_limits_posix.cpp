@@ -103,6 +103,9 @@ typedef struct user_fpregs elf_fpregset_t;
 #  endif
 # endif
 # include <semaphore.h>
+# ifndef FP_XSTATE_MAGIC1
+#  define FP_XSTATE_MAGIC1 0x46505853U
+# endif
 #endif
 
 #if !SANITIZER_ANDROID
