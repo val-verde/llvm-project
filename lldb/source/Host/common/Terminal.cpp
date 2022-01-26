@@ -16,7 +16,9 @@
 #include <fcntl.h>
 
 #if LLDB_ENABLE_TERMIOS
+extern "C" {
 #include <termios.h>
+}
 #endif
 
 using namespace lldb_private;
