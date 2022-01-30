@@ -112,7 +112,7 @@ add_subdirectory(docs)
 
 if (LLDB_ENABLE_PYTHON)
   if(LLDB_BUILD_FRAMEWORK)
-    set(lldb_python_target_dir "${LLDB_FRAMEWORK_ABSOLUTE_BUILD_DIR}/LLDB.framework/Resources/Python/lldb")
+    set(lldb_python_target_dir "${LLDB_FRAMEWORK_ABSOLUTE_BUILD_DIR}/LLDB.framework/Versions/${LLDB_FRAMEWORK_VERSION}/Resources/Python/lldb")
   else()
     set(lldb_python_target_dir "${CMAKE_BINARY_DIR}/${CMAKE_CFG_INTDIR}/${LLDB_PYTHON_RELATIVE_PATH}/lldb")
   endif()
