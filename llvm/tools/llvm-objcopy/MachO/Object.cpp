@@ -52,6 +52,9 @@ void Object::updateLoadCommandIndexes() {
     case MachO::LC_FUNCTION_STARTS:
       FunctionStartsCommandIndex = Index;
       break;
+    case MachO::LC_CODE_SIGNATURE:
+      CodeSignatureCommandIndex = Index;
+      break;
     }
   }
 }
