@@ -49,7 +49,7 @@ endif()
 if(APPLE)
   # Set the RPATHs to locate libswiftCore. Prefer the just-built one.
   set(swift_buildtree ${SWIFT_BINARY_DIR}/lib/swift/macosx)
-  set(system_libs /usr/lib/swift)
+  set(system_libs ${CMAKE_INSTALL_PREFIX}/lib ${CMAKE_INSTALL_PREFIX}/lib/swift/macosx)
 
   if(LLDB_BUILD_FRAMEWORK)
     get_target_property(framework_build_dir liblldb LIBRARY_OUTPUT_DIRECTORY)
