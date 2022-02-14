@@ -371,7 +371,7 @@ function(add_compiler_rt_runtime name type)
         # Ad-hoc sign the dylibs
         add_custom_command(TARGET ${libname}
           POST_BUILD  
-          COMMAND ${CODESIGN} --sign - $<TARGET_FILE:${libname}>
+          COMMAND ${CODESIGN} --force --sign - $<TARGET_FILE:${libname}>
           WORKING_DIRECTORY ${COMPILER_RT_OUTPUT_LIBRARY_DIR}
         )
       endif()
