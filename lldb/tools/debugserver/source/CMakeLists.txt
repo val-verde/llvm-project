@@ -238,11 +238,17 @@ add_lldb_tool(debugserver ADD_TO_FRAMEWORK
 # Workaround for Xcode-specific code-signing behavior:
 # The XCODE_ATTRIBUTE_CODE_SIGN_IDENTITY option causes debugserver to be copied
 # into the framework first and code-signed afterwards. Sign the copy manually.
-if (debugserver_codesign_identity AND LLDB_BUILD_FRAMEWORK AND
-    CMAKE_GENERATOR STREQUAL "Xcode")
-  if(NOT CMAKE_CODESIGN_ALLOCATE)
+if (debugserver_codesign_identity AND LLDB_BUILD_FRAMEWORK)
+  find_program(CMAKE_CODESIGN codesign)
+  find_program(CMAKE_CODESIGN_ALLOCATE codesign_allocate)
+
+  if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Darwin")
+    find_program(XCRUN_BINARY xcrun)
+  endif()
+
+  if(XCRUN_BINARY AND NOT CMAKE_CODESIGN_ALLOCATE)
     execute_process(
-      COMMAND xcrun -f codesign_allocate
+      COMMAND ${XCRUN_BINARY} -f codesign_allocate
       OUTPUT_STRIP_TRAILING_WHITESPACE
       OUTPUT_VARIABLE CMAKE_CODESIGN_ALLOCATE
     )
@@ -256,7 +262,7 @@ if (debugserver_codesign_identity AND LLDB_BUILD_FRAMEWORK AND
   add_custom_command(TARGET debugserver POST_BUILD
     COMMAND ${CMAKE_COMMAND} -E
             env CODESIGN_ALLOCATE=${CMAKE_CODESIGN_ALLOCATE}
-            xcrun codesign -f -s ${debugserver_codesign_identity}
+            ${XCRUN_BINARY} ${CMAKE_CODESIGN} -f -s ${debugserver_codesign_identity}
             ${pass_entitlements} ${copy_location}
     COMMENT "Code-sign debugserver copy in the build-tree framework: ${copy_location}"
   )

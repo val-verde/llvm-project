@@ -2096,13 +2096,21 @@ function(llvm_codesign name)
         XCODE_ATTRIBUTE_CODE_SIGN_ENTITLEMENTS ${ARG_ENTITLEMENTS}
       )
     endif()
-  elseif(APPLE AND CMAKE_HOST_SYSTEM_NAME MATCHES Darwin)
-    if(NOT CMAKE_CODESIGN)
-      set(CMAKE_CODESIGN xcrun codesign)
+  elseif(APPLE)
+    find_program(CMAKE_CODESIGN codesign)
+    find_program(CMAKE_CODESIGN_ALLOCATE codesign_allocate)
+
+    if (CMAKE_HOST_SYSTEM_NAME STREQUAL "Darwin")
+      find_program(XCRUN_BINARY xcrun)
     endif()
-    if(NOT CMAKE_CODESIGN_ALLOCATE)
+
+    if(NOT CMAKE_CODESIGN)
+      set(CMAKE_CODESIGN ${XCRUN_BINARY} codesign)
+    endif()
+
+    if(XCRUN_BINARY AND NOT CMAKE_CODESIGN_ALLOCATE)
       execute_process(
-        COMMAND xcrun -f codesign_allocate
+        COMMAND ${XCRUN_BINARY} -f codesign_allocate
         OUTPUT_STRIP_TRAILING_WHITESPACE
         OUTPUT_VARIABLE CMAKE_CODESIGN_ALLOCATE
       )
