@@ -890,9 +890,9 @@ public:
 
   bool isOSWindows() const { return TargetTriple.isOSWindows(); }
 
-  bool isTargetWin64() const { return In64BitMode && isOSWindows(); }
+  bool isTargetWin64() const { return In64BitMode && (isOSWindows() || TargetTriple.getEnvironment() == Triple::WineABI); }
 
-  bool isTargetWin32() const { return !In64BitMode && isOSWindows(); }
+  bool isTargetWin32() const { return !In64BitMode && (isOSWindows() || TargetTriple.getEnvironment() == Triple::WineABI); }
 
   bool isPICStyleGOT() const { return PICStyle == PICStyles::Style::GOT; }
   bool isPICStyleRIPRel() const { return PICStyle == PICStyles::Style::RIPRel; }
