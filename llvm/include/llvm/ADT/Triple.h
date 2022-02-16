@@ -256,7 +256,8 @@ public:
     Mesh,
     Amplification,
 
-    LastEnvironmentType = Amplification
+    WineABI,
+    LastEnvironmentType = WineABI
   };
   enum ObjectFormatType {
     UnknownObjectFormat,

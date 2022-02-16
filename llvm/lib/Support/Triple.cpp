@@ -284,6 +284,7 @@ StringRef Triple::getEnvironmentTypeName(EnvironmentType Kind) {
   case Callable: return "callable";
   case Mesh: return "mesh";
   case Amplification: return "amplification";
+  case WineABI: return "wineabi";
   }
 
   llvm_unreachable("Invalid EnvironmentType!");
@@ -626,6 +627,7 @@ static Triple::EnvironmentType parseEnvironment(StringRef EnvironmentName) {
       .StartsWith("callable", Triple::Callable)
       .StartsWith("mesh", Triple::Mesh)
       .StartsWith("amplification", Triple::Amplification)
+      .StartsWith("wineabi", Triple::WineABI)
       .Default(Triple::UnknownEnvironment);
 }
 
