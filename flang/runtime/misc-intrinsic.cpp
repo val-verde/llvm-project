@@ -33,7 +33,7 @@ static void TransferImpl(Descriptor &result, const Descriptor &source,
         "TRANSFER: could not allocate memory for result; STAT=%d", stat);
   }
   char *to{result.OffsetElement<char>()};
-  std::size_t resultBytes{result.Elements() * result.ElementBytes()};
+  std::size_t resultBytes{static_cast<std::size_t>(result.Elements() * result.ElementBytes())};
   const std::size_t sourceElementBytes{source.ElementBytes()};
   std::size_t sourceElements{source.Elements()};
   SubscriptValue sourceAt[maxRank];
