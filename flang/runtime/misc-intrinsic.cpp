@@ -47,7 +47,7 @@ void RTNAME(TransferSize)(Descriptor &result, const Descriptor &source,
         "TRANSFER: could not allocate memory for result; STAT=%d", stat);
   }
   char *to{result.OffsetElement<char>()};
-  std::size_t resultBytes{size * elementBytes};
+  std::size_t resultBytes{static_cast<std::size_t>(size * elementBytes)};
   const std::size_t sourceElementBytes{source.ElementBytes()};
   std::size_t sourceElements{source.Elements()};
   SubscriptValue sourceAt[maxRank];
