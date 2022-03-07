@@ -36,7 +36,7 @@ class SourceManager;
 /// Encapsulates the data about a macro definition (e.g. its tokens).
 ///
 /// There's an instance of this class for every #define.
-class MacroInfo {
+class alignas(8) MacroInfo {
   //===--------------------------------------------------------------------===//
   // State set when the macro is defined.
 
@@ -485,7 +485,7 @@ MacroDirective::DefInfo::getPreviousDefinition() {
 /// represent the macro override graph.
 ///
 /// These are stored in a FoldingSet in the preprocessor.
-class ModuleMacro : public llvm::FoldingSetNode {
+class alignas(8) ModuleMacro : public llvm::FoldingSetNode {
   friend class Preprocessor;
 
   /// The name defined by the macro.
