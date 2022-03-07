@@ -201,13 +201,13 @@ private:
   explicit MachineOperand(MachineOperandType K)
       : OpKind(K), SubReg_TargetFlags(0) {
     // Assert that the layout is what we expect. It's easy to grow this object.
-    static_assert(alignof(MachineOperand) <= alignof(int64_t),
+    static_assert(alignof(MachineOperand) <= 8,
                   "MachineOperand shouldn't be more than 8 byte aligned");
     static_assert(sizeof(Contents) <= 2 * sizeof(void *),
                   "Contents should be at most two pointers");
     static_assert(sizeof(MachineOperand) <=
-                      alignTo<alignof(int64_t)>(2 * sizeof(unsigned) +
-                                                3 * sizeof(void *)),
+                      alignTo<8>(2 * sizeof(unsigned) +
+                                 3 * sizeof(void *)),
                   "MachineOperand too big. Should be Kind, SmallContents, "
                   "ParentMI, and Contents");
   }
