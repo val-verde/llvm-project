@@ -1425,6 +1425,22 @@ def : ProcessorModel<"cyclone",     SwiftModel,         [ARMv8a, ProcSwift,
                                                          FeatureZCZeroing,
                                                          FeatureNoPostRASched]>;
 
+def : ProcessorModel<"apple-m1",     SwiftModel,        [ARMv85a, ProcSwift,
+                                                         FeatureHasRetAddrStack,
+                                                         FeatureNEONForFP,
+                                                         FeatureVFP4,
+                                                         FeatureMP,
+                                                         FeatureHWDivThumb,
+                                                         FeatureHWDivARM,
+                                                         FeatureAvoidPartialCPSR,
+                                                         FeatureAvoidMOVsShOp,
+                                                         FeatureHasSlowFPVMLx,
+                                                         FeatureHasSlowFPVFMx,
+                                                         FeatureCrypto,
+                                                         FeatureUseMISched,
+                                                         FeatureZCZeroing,
+                                                         FeatureNoPostRASched]>;
+
 def : ProcNoItin<"exynos-m3",                           [ARMv8a, ProcExynos]>;
 def : ProcNoItin<"exynos-m4",                           [ARMv82a, ProcExynos,
                                                          FeatureFullFP16,
