@@ -41,17 +41,17 @@ module m
   end type goodC_funptrCoarrayType
 
   type team_typeCoarrayType
-    !ERROR: Coarray 'field' may not have type TEAM_TYPE, C_PTR, or C_FUNPTR
+    !ERROR: A coarray component may not be of type TEAM_TYPE from ISO_FORTRAN_ENV
     type(team_type), allocatable, codimension[:] :: field
   end type team_typeCoarrayType
 
   type c_ptrCoarrayType
-    !ERROR: Coarray 'field' may not have type TEAM_TYPE, C_PTR, or C_FUNPTR
+    !ERROR: A coarray component may not be of type C_PTR or C_FUNPTR from ISO_C_BINDING
     type(c_ptr), allocatable, codimension[:] :: field
   end type c_ptrCoarrayType
 
   type c_funptrCoarrayType
-    !ERROR: Coarray 'field' may not have type TEAM_TYPE, C_PTR, or C_FUNPTR
+    !ERROR: A coarray component may not be of type C_PTR or C_FUNPTR from ISO_C_BINDING
     type(c_funptr), allocatable, codimension[:] :: field
   end type c_funptrCoarrayType
 

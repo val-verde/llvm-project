@@ -455,30 +455,24 @@ void CheckHelper::CheckObjectEntity(
   CheckAssumedTypeEntity(symbol, details);
   WarnMissingFinal(symbol);
   if (!details.coshape().empty()) {
-    bool isDeferredCoshape{details.coshape().IsDeferredShape()};
+    bool isDeferredShape{details.coshape().IsDeferredShape()};
     if (IsAllocatable(symbol)) {
-      if (!isDeferredCoshape) { // C827
+      if (!isDeferredShape) { // C827
         messages_.Say("'%s' is an ALLOCATABLE coarray and must have a deferred"
                       " coshape"_err_en_US,
             symbol.name());
       }
     } else if (symbol.owner().IsDerivedType()) { // C746
       std::string deferredMsg{
-          isDeferredCoshape ? "" : " and have a deferred coshape"};
+          isDeferredShape ? "" : " and have a deferred coshape"};
       messages_.Say("Component '%s' is a coarray and must have the ALLOCATABLE"
                     " attribute%s"_err_en_US,
           symbol.name(), deferredMsg);
     } else {
       if (!details.coshape().IsAssumedSize()) { // C828
         messages_.Say(
-            "'%s' is a non-ALLOCATABLE coarray and must have an explicit coshape"_err_en_US,
-            symbol.name());
-      }
-    }
-    if (const DeclTypeSpec * type{details.type()}) {
-      if (IsBadCoarrayType(type->AsDerived())) { // C747 & C824
-        messages_.Say(
-            "Coarray '%s' may not have type TEAM_TYPE, C_PTR, or C_FUNPTR"_err_en_US,
+            "Component '%s' is a non-ALLOCATABLE coarray and must have"
+            " an explicit coshape"_err_en_US,
             symbol.name());
       }
     }

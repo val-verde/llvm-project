@@ -805,8 +805,7 @@ static bool VerifyHeader(llvm::ArrayRef<char> content) {
   return expectSum == actualSum;
 }
 
-Scope *ModFileReader::Read(
-    const SourceName &name, Scope *ancestor, bool silent) {
+Scope *ModFileReader::Read(const SourceName &name, Scope *ancestor) {
   std::string ancestorName; // empty for module
   if (ancestor) {
     if (auto *scope{ancestor->FindSubmodule(name)}) {
@@ -827,12 +826,10 @@ Scope *ModFileReader::Read(
   auto path{ModFileName(name, ancestorName, context_.moduleFileSuffix())};
   const auto *sourceFile{parsing.Prescan(path, options)};
   if (parsing.messages().AnyFatalError()) {
-    if (!silent) {
-      for (auto &msg : parsing.messages().messages()) {
-        std::string str{msg.ToString()};
-        Say(name, ancestorName,
-            parser::MessageFixedText{str.c_str(), str.size()}, path);
-      }
+    for (auto &msg : parsing.messages().messages()) {
+      std::string str{msg.ToString()};
+      Say(name, ancestorName, parser::MessageFixedText{str.c_str(), str.size()},
+          path);
     }
     return nullptr;
   }
