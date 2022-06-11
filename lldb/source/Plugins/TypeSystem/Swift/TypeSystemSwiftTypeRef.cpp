@@ -2059,7 +2059,7 @@ bool TypeSystemSwiftTypeRef::IsFunctionPointerType(
 
 bool TypeSystemSwiftTypeRef::IsScopedEnumerationType(lldb::opaque_compiler_type_t type) {
   auto impl = [&]() -> bool { return IsScopedEnumerationType(type); };
-  VALIDATE_AND_RETURN(impl, IsFunctionPointerType, type,
+  VALIDATE_AND_RETURN(impl, IsFunctionPointerType, type, g_no_exe_ctx,
                       (ReconstructType(type)), (ReconstructType(type)));
 }
 
@@ -2326,7 +2326,7 @@ TypeSystemSwiftTypeRef::GetCanonicalType(opaque_compiler_type_t type) {
 CompilerType
 TypeSystemSwiftTypeRef::GetEnumerationIntegerType(lldb::opaque_compiler_type_t type) {
   auto impl = [&]() -> CompilerType  { return GetEnumerationIntegerType(type); };
-  VALIDATE_AND_RETURN(impl, GetEnumerationIntegerType, type,
+  VALIDATE_AND_RETURN(impl, GetEnumerationIntegerType, type, g_no_exe_ctx,
                       (ReconstructType(type)), (ReconstructType(type)));
 }
 
