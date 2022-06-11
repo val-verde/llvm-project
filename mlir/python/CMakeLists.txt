@@ -322,8 +322,6 @@ declare_mlir_python_extension(MLIRPythonExtension.PythonTest
     ${MLIR_SOURCE_DIR}/test/python/lib/PythonTestModule.cpp
   PRIVATE_LINK_LIBS
     LLVMSupport
-  EMBED_CAPI_LINK_LIBS
-    MLIRCAPIPythonTestDialect
 )
 
 ################################################################################
