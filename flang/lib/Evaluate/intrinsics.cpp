@@ -688,7 +688,7 @@ static const IntrinsicInterface genericIntrinsicFunction[]{
         {{"a", ExtensibleDerived, Rank::anyOrAssumedRank},
             {"b", ExtensibleDerived, Rank::anyOrAssumedRank}},
         DefaultLogical, Rank::scalar, IntrinsicClass::inquiryFunction},
-    {"scale", {{"x", SameReal}, {"i", AnyInt}}, SameReal}, // == IEEE_SCALB()
+    {"scale", {{"x", SameReal}, {"i", AnyInt}}, SameReal},
     {"scan",
         {{"string", SameChar}, {"set", SameChar},
             {"back", AnyLogical, Rank::elemental, Optionality::optional},
@@ -786,9 +786,6 @@ static const IntrinsicInterface genericIntrinsicFunction[]{
             DefaultingKIND},
         KINDInt},
     {"__builtin_ieee_is_nan", {{"a", AnyFloating}}, DefaultLogical},
-    {"__builtin_ieee_next_after", {{"x", SameReal}, {"y", AnyReal}}, SameReal},
-    {"__builtin_ieee_next_down", {{"x", SameReal}}, SameReal},
-    {"__builtin_ieee_next_up", {{"x", SameReal}}, SameReal},
     {"__builtin_ieee_selected_real_kind", // alias for selected_real_kind
         {{"p", AnyInt, Rank::scalar},
             {"r", AnyInt, Rank::scalar, Optionality::optional},
