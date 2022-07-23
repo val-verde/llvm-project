@@ -105,12 +105,16 @@ static __inline void wideMultiply(rep_t a, rep_t b, rep_t *hi, rep_t *lo) {
 COMPILER_RT_ABI fp_t __adddf3(fp_t a, fp_t b);
 
 #elif defined QUAD_PRECISION
-#if __LDBL_MANT_DIG__ == 113 && defined(__SIZEOF_INT128__)
+#if (__LDBL_MANT_DIG__ == 113 || defined(__x86_64__)) && defined(__SIZEOF_INT128__)
 #define CRT_LDBL_128BIT
 typedef uint64_t half_rep_t;
 typedef __uint128_t rep_t;
 typedef __int128_t srep_t;
+#ifdef __FLOAT128__
+typedef __float128 fp_t;
+#else
 typedef long double fp_t;
+#endif
 #define HALF_REP_C UINT64_C
 #define REP_C (__uint128_t)
 // Note: Since there is no explicit way to tell compiler the constant is a
