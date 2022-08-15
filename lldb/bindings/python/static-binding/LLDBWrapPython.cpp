@@ -21644,7 +21644,7 @@ SWIGINTERN PyObject *_wrap_SBDebugger_GetInputFileHandle(PyObject *SWIGUNUSEDPAR
   }
   {
     resultobj = nullptr;
-    lldb::FileSP &sp = result;
+    lldb::FileSP sp = result;
     if (sp) {
       PythonFile pyfile = unwrapOrSetPythonException(PythonFile::FromFile(*sp));
       if (!pyfile.IsValid())
@@ -21684,7 +21684,7 @@ SWIGINTERN PyObject *_wrap_SBDebugger_GetOutputFileHandle(PyObject *SWIGUNUSEDPA
   }
   {
     resultobj = nullptr;
-    lldb::FileSP &sp = result;
+    lldb::FileSP sp = result;
     if (sp) {
       PythonFile pyfile = unwrapOrSetPythonException(PythonFile::FromFile(*sp));
       if (!pyfile.IsValid())
@@ -21724,7 +21724,7 @@ SWIGINTERN PyObject *_wrap_SBDebugger_GetErrorFileHandle(PyObject *SWIGUNUSEDPAR
   }
   {
     resultobj = nullptr;
-    lldb::FileSP &sp = result;
+    lldb::FileSP sp = result;
     if (sp) {
       PythonFile pyfile = unwrapOrSetPythonException(PythonFile::FromFile(*sp));
       if (!pyfile.IsValid())
@@ -30488,7 +30488,7 @@ SWIGINTERN PyObject *_wrap_SBFile_GetFile(PyObject *SWIGUNUSEDPARM(self), PyObje
   }
   {
     resultobj = nullptr;
-    lldb::FileSP &sp = result;
+    lldb::FileSP sp = result;
     if (sp) {
       PythonFile pyfile = unwrapOrSetPythonException(PythonFile::FromFile(*sp));
       if (!pyfile.IsValid())
