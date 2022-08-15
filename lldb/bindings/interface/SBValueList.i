@@ -8,6 +8,7 @@
 
 namespace lldb {
 
+%module("threads"=1) SBValueList;
 %feature("docstring",
 "Represents a collection of SBValues.  Both :py:class:`SBFrame.GetVariables()` and
 :py:class:`SBFrame.GetRegisters()` return a SBValueList.
@@ -103,7 +104,7 @@ public:
     GetFirstValueByName (const char* name) const;
 
     %extend {
-       %nothreadallow;
+       %feature("nothreadallow");
        std::string lldb::SBValueList::__str__ (){
            lldb::SBStream description;
            const size_t n = $self->GetSize();
@@ -122,7 +123,7 @@ public:
                --desc_len;
            return std::string(desc, desc_len);
        }
-       %clearnothreadallow;
+       %feature("nothreadallow", "");
     }
 
 #ifdef SWIGPYTHON
