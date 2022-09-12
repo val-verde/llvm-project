@@ -147,7 +147,7 @@ bool JMCInstrumenter::runOnModule(Module &M) {
   bool Changed = false;
   LLVMContext &Ctx = M.getContext();
   Triple ModuleTriple(M.getTargetTriple());
-  bool IsMSVC = ModuleTriple.isKnownWindowsMSVCEnvironment();
+  bool IsMSVC = ModuleTriple.isWindowsMSVCEnvironment();
   bool IsELF = ModuleTriple.isOSBinFormatELF();
   assert((IsELF || IsMSVC) && "Unsupported triple for JMC");
   bool UseX86FastCall = IsMSVC && ModuleTriple.getArch() == Triple::x86;
