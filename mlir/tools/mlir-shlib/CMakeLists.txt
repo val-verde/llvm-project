@@ -23,7 +23,7 @@ foreach (lib ${mlir_libs})
   endif()
   # libClang needs this, but it causes problems for MLIR (probably
   # because we use public library dependencies within MLIR.)
-  # list(APPEND _DEPS  $<TARGET_PROPERTY:${lib},LINK_LIBRARIES>)
+  list(APPEND _DEPS  $<TARGET_PROPERTY:${lib},LINK_LIBRARIES>)
 endforeach ()
 
 if(MLIR_LINK_MLIR_DYLIB)
