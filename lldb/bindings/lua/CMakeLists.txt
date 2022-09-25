@@ -62,7 +62,7 @@ function(finish_swig_lua swig_target lldb_lua_bindings_dir lldb_lua_target_dir)
   add_dependencies(lldb ${swig_target})
 
   if(LLDB_BUILD_FRAMEWORK)
-    set(LLDB_LUA_INSTALL_PATH ${LLDB_FRAMEWORK_INSTALL_DIR}/LLDB.framework/Resources/Python)
+    set(LLDB_LUA_INSTALL_PATH ${LLDB_FRAMEWORK_INSTALL_DIR}/LLDB.framework/Versions/${LLDB_FRAMEWORK_VERSION}/Resources/Python)
   else()
     set(LLDB_LUA_INSTALL_PATH ${LLDB_LUA_RELATIVE_PATH})
   endif()
