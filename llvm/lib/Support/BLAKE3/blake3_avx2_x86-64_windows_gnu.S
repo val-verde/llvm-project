@@ -1,6 +1,6 @@
 .intel_syntax noprefix
-.hidden _blake3_hash_many_avx2
-.hidden blake3_hash_many_avx2
+# .hidden _blake3_hash_many_avx2
+# .hidden blake3_hash_many_avx2
 .global _blake3_hash_many_avx2
 .global blake3_hash_many_avx2
 .section .text
