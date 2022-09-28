@@ -312,6 +312,7 @@ declare_mlir_python_extension(MLIRPythonExtension.Transforms
     MLIRCAPITransforms
 )
 
+if (MLIR_INCLUDE_TESTS)
 # TODO: This should not be included in the main Python extension. However,
 # putting it into MLIRPythonTestSources along with the dialect declaration
 # above confuses Python module loader when running under lit.
@@ -323,6 +324,7 @@ declare_mlir_python_extension(MLIRPythonExtension.PythonTest
   PRIVATE_LINK_LIBS
     LLVMSupport
 )
+endif ()
 
 ################################################################################
 # Common CAPI dependency DSO.
