@@ -95,11 +95,17 @@ private:
 
   /// The bit used to tag LLDB's virtual addresses as such. See \c
   /// m_range_module_map.
+#if defined(__ANDROID__) && defined(__aarch64__)
+  const static uint64_t LLDB_FILE_ADDRESS_BIT = 0x0020000000000000;
+  static_assert(LLDB_FILE_ADDRESS_BIT & SWIFT_ABI_ARM64_SWIFT_SPARE_BITS_MASK,
+    "LLDB file address bit not in spare bits mask!");
+#else
   const static uint64_t LLDB_FILE_ADDRESS_BIT = 0x2000000000000000;
   static_assert(LLDB_FILE_ADDRESS_BIT & SWIFT_ABI_X86_64_SWIFT_SPARE_BITS_MASK,
     "LLDB file address bit not in spare bits mask!");
   static_assert(LLDB_FILE_ADDRESS_BIT & SWIFT_ABI_ARM64_SWIFT_SPARE_BITS_MASK,
     "LLDB file address bit not in spare bits mask!");
+#endif
 
 };
 } // namespace lldb_private
