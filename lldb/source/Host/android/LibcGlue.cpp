@@ -6,6 +6,8 @@
 //
 //===----------------------------------------------------------------------===//
 
+#ifdef __ANDROID__
+
 // This files adds functions missing from libc on earlier versions of Android
 
 #include <android/api-level.h>
@@ -24,5 +26,7 @@
 time_t timegm(struct tm *t) { return (time_t)timegm64(t); }
 
 int posix_openpt(int flags) { return open("/dev/ptmx", flags); }
+
+#endif
 
 #endif
