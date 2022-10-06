@@ -665,9 +665,9 @@ LogicalResult VulkanRuntime::createComputePipeline() {
   computePipelineCreateInfo.flags = 0;
   computePipelineCreateInfo.stage = stageInfo;
   computePipelineCreateInfo.layout = pipelineLayout;
-  computePipelineCreateInfo.basePipelineHandle = nullptr;
+  computePipelineCreateInfo.basePipelineHandle = VK_NULL_HANDLE;
   computePipelineCreateInfo.basePipelineIndex = 0;
-  RETURN_ON_VULKAN_ERROR(vkCreateComputePipelines(device, nullptr, 1,
+  RETURN_ON_VULKAN_ERROR(vkCreateComputePipelines(device, VK_NULL_HANDLE, 1,
                                                   &computePipelineCreateInfo,
                                                   nullptr, &pipeline),
                          "vkCreateComputePipelines");
@@ -851,7 +851,7 @@ LogicalResult VulkanRuntime::submitCommandBuffersToQueue() {
   submitInfo.pCommandBuffers = commandBuffers.data();
   submitInfo.signalSemaphoreCount = 0;
   submitInfo.pSignalSemaphores = nullptr;
-  RETURN_ON_VULKAN_ERROR(vkQueueSubmit(queue, 1, &submitInfo, nullptr),
+  RETURN_ON_VULKAN_ERROR(vkQueueSubmit(queue, 1, &submitInfo, VK_NULL_HANDLE),
                          "vkQueueSubmit");
   return success();
 }
