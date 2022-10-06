@@ -29,7 +29,7 @@ static std::int64_t ArgumentLength(std::int32_t n) {
   if constexpr (sizeof(std::size_t) <= sizeof(std::int64_t)) {
     return static_cast<std::int64_t>(length);
   } else {
-    std::size_t max{std::numeric_limits<std::int64_t>::max()};
+    std::size_t max{std::numeric_limits<std::size_t>::max()};
     return length > max ? 0 // Just fail.
                         : static_cast<std::int64_t>(length);
   }
