@@ -19,6 +19,7 @@
 using namespace __hwasan;
 using namespace __sanitizer;
 
+typedef uintptr_t _Unwind_Word __attribute__((__mode__(__unwind_word__)));
 typedef _Unwind_Reason_Code PersonalityFn(int version, _Unwind_Action actions,
                                           uint64_t exception_class,
                                           _Unwind_Exception* unwind_exception,
