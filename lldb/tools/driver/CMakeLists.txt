@@ -41,8 +41,7 @@ if(LLDB_BUILD_FRAMEWORK)
     BUILD_RPATH
       "${LLDB_FRAMEWORK_ABSOLUTE_BUILD_DIR}"
     INSTALL_RPATH
-      "@loader_path/../../../SharedFrameworks"
-      "@loader_path/../../System/Library/PrivateFrameworks"
-      "@loader_path/../../Library/PrivateFrameworks"
+      "@loader_path/../lib"
+      "@loader_path/../../System/Library/Frameworks"
   )
 endif()
