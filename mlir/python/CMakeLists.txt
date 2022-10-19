@@ -30,7 +30,7 @@ endforeach()
 # such).
 install(
   DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/mlir
-  DESTINATION python
+  DESTINATION python_packages/mlir_core
   COMPONENT MLIRBindingsPythonSources
   FILES_MATCHING PATTERN "*.py"
 )

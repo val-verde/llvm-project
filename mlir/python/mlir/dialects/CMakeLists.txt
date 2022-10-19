@@ -71,7 +71,7 @@ add_dependencies(MLIRBindingsPythonSources MLIRBindingsPythonVectorOps)
 # add_mlir_dialect_python_bindings and installing the precise file there.
 install(
   DIRECTORY ${PROJECT_BINARY_DIR}/python/mlir/dialects
-  DESTINATION python/mlir
+  DESTINATION python_packages/mlir_core/mlir
   COMPONENT MLIRBindingsPythonDialects
   FILES_MATCHING PATTERN "_*_gen.py"
   PATTERN "__pycache__" EXCLUDE
